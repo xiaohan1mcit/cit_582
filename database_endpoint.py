@@ -47,6 +47,7 @@ def trade():
         print( f"content = {json.dumps(content)}" )
         columns = [ "sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform" ]
         fields = [ "sig", "payload" ]
+        print("haha1")
         
         # check whether the input contains both "sig" and "payload"
         error = False
