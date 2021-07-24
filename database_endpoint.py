@@ -80,6 +80,8 @@ def trade():
         pk = content['payload']['sender_pk']
         platform = content['payload']['platform']
         payload_json = json.dumps(payload)
+        print("haha")
+        print（platform）
 
         result = False
         
