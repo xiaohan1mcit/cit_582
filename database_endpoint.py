@@ -82,7 +82,6 @@ def trade():
         pk = content['payload']['sender_pk']
         platform = content['payload']['platform']
         payload_json = json.dumps(payload)
-        print("haha")
 
         result = False
         
@@ -99,7 +98,7 @@ def trade():
                 print("Eth sig verifies!")
                 result = True
 
-        pirnt(result)
+        pirnt(str(result))
         jsonify(True) 
 
         
