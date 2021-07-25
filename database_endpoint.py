@@ -149,9 +149,9 @@ def trade():
             create_session()
             print("false")
             order_obj = Log(message=payload_json)
-            print(order_obj.message)
+#             print(order_obj.message)
             
-#             g.session.add(order_obj)
+            g.session.add(order_obj)
             shutdown_session()
             return jsonify(result)
 
@@ -177,11 +177,11 @@ def order_book():
             
     shutdown_session()
     
-#     print(len(order_dict_list))
-#     print(type(order_dict_list[-2]))
-#     print(order_dict_list[-2])
-#     print(type(order_dict_list[-1]))
-#     print(order_dict_list[-1])
+    print(len(order_dict_list))
+    print(type(order_dict_list[-2]))
+    print(order_dict_list[-2])
+    print(type(order_dict_list[-1]))
+    print(order_dict_list[-1])
 
     result = {
         'data': order_dict_list
