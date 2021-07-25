@@ -116,13 +116,16 @@ def trade():
         # If the signature verifies, store the signature,
         # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
         if result is True:
-            print("true")
+            print("true true")
 
         # If the signature does not verify, do not insert the order into the “Order” table.
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
         if result is False:
-            print("false")
-            log_message(payload_json)
+            print("false false")
+            create_session()
+            order_obj = Log(message=payload_json)
+            g.session.add(order_obj)
+            shutdown_session("a response")
 
         jsonify(True)
 
