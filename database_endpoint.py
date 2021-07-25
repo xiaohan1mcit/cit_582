@@ -185,9 +185,11 @@ def order_book():
     print(len(order_dict_list))
     
     print(type(order_dict_list[-2]))
+    print(len(order_dict_list[-2]))
     print(order_dict_list[-2])
     
     print(type(order_dict_list[-1]))
+    print(len(order_dict_list[-1]))
     print(order_dict_list[-1])
 
     
