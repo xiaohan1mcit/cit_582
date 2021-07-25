@@ -148,13 +148,13 @@ def trade():
             print("signature does NOT verify")
             log_message(payload)
             
-            create_session()
-            last_log = g.session.query(Log).order_by(Log.id.desc()).first()
-            print("")
-            print(type(last_log))
-            print(type(last_log.message))
-            print(last_log.message)
-            shutdown_session()
+#             create_session()
+#             last_log = g.session.query(Log).order_by(Log.id.desc()).first()
+#             print("")
+#             print(type(last_log))
+#             print(type(last_log.message))
+#             print(last_log.message)
+#             shutdown_session()
             
             return jsonify(result)
 
