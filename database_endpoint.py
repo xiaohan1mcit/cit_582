@@ -88,6 +88,8 @@ def trade():
         pk = content['payload']['sender_pk']
         platform = content['payload']['platform']
         payload_json = json.dumps(payload)
+        print(type(payload))
+        print(type(payload_json))
 
         # The platform must be either “Algorand” or "Ethereum".
         platforms = ["Algorand", "Ethereum"]
