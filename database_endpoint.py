@@ -90,6 +90,11 @@ def trade():
         platform = content['payload']['platform']
         payload_json = json.dumps(payload)
         
+        platforms = ["Algorand", "Ethereum"]
+        if not platform in platforms:
+            print("input platform is not Algorand or Ethereum")
+            return jsonify(False)
+        
         result = False
 
         if platform == "Algorand":
