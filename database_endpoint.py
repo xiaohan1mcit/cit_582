@@ -182,7 +182,7 @@ def order_book():
         "data": order_dict_list
     }
 
-    shutdown_session()
+#     shutdown_session()
     return jsonify(result)
 
 
