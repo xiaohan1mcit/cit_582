@@ -44,7 +44,7 @@ def log_message(d):
     create_session()
     order_obj = Log(message=d)
     g.session.add(order_obj)
-    shutdown_session(order_obj)
+    shutdown_session()
 
 # convert a row in DB into a dict
 def row2dict(row):
