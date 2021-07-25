@@ -41,6 +41,8 @@ def shutdown_session(exception=None):
 
 def log_message(d):
     # Takes input dictionary d and writes it to the Log table
+    # actually should be the JSON of the dict, not the dict
+    # original requirement was wrong
     create_session()
     order_obj = Log(message=d)
     g.session.add(order_obj)
@@ -154,7 +156,7 @@ def trade():
 #             g.session.add(order_obj)
 #             shutdown_session()
             
-            log_message(payload)
+            log_message(payload_json)
         
             
             create_session()
