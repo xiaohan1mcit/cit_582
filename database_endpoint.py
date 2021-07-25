@@ -185,7 +185,7 @@ def order_book():
         
     order_dict_list = [
            row2dict(order)
-           for order in session.query(Order).all()
+           for order in g.session.query(Order).all()
     ]
         
     result = {
