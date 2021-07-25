@@ -90,7 +90,7 @@ def trade():
             if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
                 print("Algo sig verifies!")
                 result = True
-                pirnt(str(result))
+                pirnt("AAAAAA")
 
         elif platform == "Ethereum":
             print("Ethereum")
@@ -98,7 +98,7 @@ def trade():
             if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
                 print("Eth sig verifies!")
                 result = True
-                pirnt(str(result))
+                pirnt("EEEEE")
 
         
         jsonify(True) 
