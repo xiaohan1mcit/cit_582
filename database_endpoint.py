@@ -96,7 +96,6 @@ def trade():
             print("Algorand")
             if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
                 print("Algo sig verifies!")
-                print("AAAAAA")
                 result = True
 
 
@@ -105,9 +104,9 @@ def trade():
             eth_encoded_msg = eth_account.messages.encode_defunct(text=payload_json)
             if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
                 print("Eth sig verifies!")
-                print("EEEEE")
                 result = True
-
+        
+        print(str(result))
         jsonify(True)
 
         # If the signature verifies, store the signature, 
