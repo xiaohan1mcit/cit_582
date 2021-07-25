@@ -166,17 +166,23 @@ def order_book():
     # ("sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", “signature”).
     print("--------- order_book ---------")
     create_session()
-    r = g.session.query(Order).order_by(Order.id.desc()).first()
-    print(type(r))
-    result = r.__dict__
-    print(type(result))
-    print(result)
 
-    # order_dict_list = []
-    # orders = g.session.query(Order).all()
-    # for order in orders:
+    # r = g.session.query(Order).order_by(Order.id.desc()).first()
+    # print(type(r))
+    # result = r.__dict__
+    # print(type(result))
+    # print(result)
 
+    order_dict_list = []
+    orders = g.session.query(Order).all()
+    for order in orders:
+        order_dict_list.append(order.__dict__)
 
+    result = {
+        "data": order_dict_list
+    }
+
+    shutdown_session()
     return jsonify(result)
 
 
