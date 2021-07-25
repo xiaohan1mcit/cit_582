@@ -127,6 +127,14 @@ def trade():
                               buy_amount=payload['buy_amount'],
                               sell_amount=payload['sell_amount'],
                               signature=sig)
+            print(order_obj.sender_pk)
+            print(order_obj.receiver_pk)
+            print(order_obj.buy_currency)
+            print(order_obj.sell_currency)
+            print(order_obj.buy_amount)
+            print(order_obj.sell_amount)
+            print(order_obj.signature)
+            
             g.session.add(order_obj)
             shutdown_session()
             jsonify(result)
