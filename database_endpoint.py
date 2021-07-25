@@ -188,7 +188,10 @@ def order_book():
     result = {
         "data": order_dict_list
     }
-    result = json.dumps(result)
+    print(type(result))
+    print(result)
+    print(type(result['data']))
+    print(result['data'])
 
     shutdown_session()
     
