@@ -136,15 +136,7 @@ def trade():
                               sell_currency=payload['sell_currency'],
                               buy_amount=payload['buy_amount'],
                               sell_amount=payload['sell_amount'],
-                              signature=sig)
-#             print(order_obj.sender_pk)
-#             print(order_obj.receiver_pk)
-#             print(order_obj.buy_currency)
-#             print(order_obj.sell_currency)
-#             print(order_obj.buy_amount)
-#             print(order_obj.sell_amount)
-#             print(order_obj.signature)
-            
+                              signature=sig)            
             g.session.add(order_obj)
             shutdown_session()
             return jsonify(result)
@@ -154,16 +146,12 @@ def trade():
         if result is False:
             create_session()
             print("signature does NOT verify")
-            order_obj = Log(message=payload_json)
-#             print(order_obj.message)
-            
+            order_obj = Log(message=payload_json)            
             g.session.add(order_obj)
             shutdown_session()
             return jsonify(result)
 
         
-
-
 @app.route('/order_book')
 def order_book():
     # Your code here
