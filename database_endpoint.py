@@ -177,6 +177,12 @@ def order_book():
     orders = g.session.query(Order).all()
     for order in orders:
         order_dict_list.append(order.__dict__)
+        
+    print(len(order_dict_list))
+    print(type(order_dict_list[0]))
+    print(order_dict_list[0])
+    print(type(order_dict_list[1]))
+    print(order_dict_list[1])
 
     result = {
         "data": order_dict_list
