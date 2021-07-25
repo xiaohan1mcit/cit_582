@@ -57,6 +57,8 @@ def trade():
         columns = ["sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform"]
         fields = ["sig", "payload"]
 
+        print("---------hehehe---------")
+        
         # check whether the input contains both "sig" and "payload"
         error = False
         for field in fields:
