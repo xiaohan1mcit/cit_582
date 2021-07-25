@@ -178,7 +178,9 @@ def order_book():
     orders = g.session.query(Order).all()
     for order in orders:
         order_dict_list.append(order.__dict__)
-        
+            
+    shutdown_session()
+    
     print(len(order_dict_list))
     print(type(order_dict_list[-2]))
     print(order_dict_list[-2])
@@ -193,7 +195,7 @@ def order_book():
     print(type(result['data']))
     print(len(result['data']))
 
-    shutdown_session()
+    
     
     return jsonify(result)
 
