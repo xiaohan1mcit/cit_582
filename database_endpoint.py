@@ -189,9 +189,9 @@ def order_book():
         "data": order_dict_list
     }
     print(type(result))
-    print(result)
+    print(len(result))
     print(type(result['data']))
-    print(result['data'])
+    print(len(result['data']))
 
     shutdown_session()
     
