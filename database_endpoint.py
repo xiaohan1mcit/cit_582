@@ -38,16 +38,16 @@ def shutdown_session(exception=None):
 -------- Helper methods (feel free to add your own!) -------
 """
 
-
+# Takes input dictionary d and writes it to the Log table
+# actually should be the JSON of the dict, not the dict
+# original requirement was wrong
 def log_message(d):
-    # Takes input dictionary d and writes it to the Log table
-    # actually should be the JSON of the dict, not the dict
-    # original requirement was wrong
     create_session()
     order_obj = Log(message=d)
     g.session.add(order_obj)
     shutdown_session()
 
+    
 # convert a row in DB into a dict
 def row2dict(row):
     return {
