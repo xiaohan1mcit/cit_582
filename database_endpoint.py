@@ -46,6 +46,14 @@ def log_message(d):
     shutdown_session(order_obj)
 
 
+def row2dict(row):
+    return {
+        c.name: str(getattr(row, c.name))
+        for c in row.__table__.columns
+    }
+    
+
+
 """
 ---------------- Endpoints ----------------
 """
@@ -170,10 +178,15 @@ def order_book():
     print("--------- order_book ---------")
     create_session()
 
-    order_dict_list = []
-    orders = g.session.query(Order).all()
-    for order in orders:
-        order_dict_list.append(order.__dict__)
+#     order_dict_list = []
+#     orders = g.session.query(Order).all()
+#     for order in orders:
+#         order_dict_list.append(order.__dict__)
+        
+    order_dict_list = [
+           row2dict(order)
+           for order in session.query(Order).all()
+    ]
         
     result = {
         'data': order_dict_list
