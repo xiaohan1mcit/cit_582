@@ -57,7 +57,7 @@ def trade():
         columns = ["sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform"]
         fields = ["sig", "payload"]
 
-        print("---------hehehe---------")
+        
         
         # check whether the input contains both "sig" and "payload"
         error = False
@@ -79,6 +79,8 @@ def trade():
             log_message(content)
             return jsonify(False)
 
+        print("hehehe")
+        
         # Your code here
         # Note that you can access the database session using g.session
 
