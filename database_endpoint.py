@@ -80,21 +80,22 @@ def trade():
         # Your code here
         # Note that you can access the database session using g.session
 
-        # The platform must be either “Algorand” or "Ethereum".
-        # Your code should check whether “sig” is a valid signature of json.dumps(payload), 
-        # using the signature algorithm specified by the platform field. 
-        # Be sure to verify the payload using the sender_pk.
+        # extract contents from json
         sig = content['sig']
         payload = content['payload']
         pk = content['payload']['sender_pk']
         platform = content['payload']['platform']
         payload_json = json.dumps(payload)
-        
+
+        # The platform must be either “Algorand” or "Ethereum".
         platforms = ["Algorand", "Ethereum"]
         if not platform in platforms:
             print("input platform is not Algorand or Ethereum")
             return jsonify(False)
-        
+
+        # check whether “sig” is a valid signature of json.dumps(payload),
+        # using the signature algorithm specified by the platform field.
+        # Be sure to verify the payload using the sender_pk.
         result = False
 
         if platform == "Algorand":
@@ -102,7 +103,6 @@ def trade():
             if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
                 print("Algo sig verifies!")
                 result = True
-
 
         elif platform == "Ethereum":
             print("Ethereum")
