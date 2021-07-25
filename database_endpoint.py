@@ -40,7 +40,9 @@ def shutdown_session(response_or_exc):
 
 def log_message(d):
     # Takes input dictionary d and writes it to the Log table
-    pass
+    create_session()
+    order_obj = Log(message=d)
+    shutdown_session(order_obj)
 
 
 """
@@ -51,7 +53,7 @@ def log_message(d):
 @app.route('/trade', methods=['POST'])
 def trade():
     if request.method == "POST":
-        print("---------haha---------")
+        print("---------new input---------")
         content = request.get_json(silent=True)
         print(f"content = {json.dumps(content)}")
         columns = ["sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform"]
@@ -110,17 +112,21 @@ def trade():
             if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
                 print("Eth sig verifies!")
                 result = True
-        
-        print(str(result))
-        jsonify(True)
 
-        # If the signature verifies, store the signature, 
+        # If the signature verifies, store the signature,
         # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
+        if result is True:
+            print("true")
 
         # If the signature does not verify, do not insert the order into the “Order” table.
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
+        if result is False:
+            print("false")
+            log_message(payload_json)
 
-        # In this assignment, you will not need to match or fill the orders, 
+        jsonify(True)
+
+        # In this assignment, you will not need to match or fill the orders,
         # simply insert them into the database (if the signature verifies).
 
 
@@ -129,9 +135,9 @@ def order_book():
     # Your code here
     # Note that you can access the database session using g.session
 
-    # The “/order_book” endpoint should return a list of all orders in the database. 
-    # The response should contain a single key “data” that refers to a list of orders formatted as JSON. 
-    # Each order should be a dict with (at least) the following fields 
+    # The “/order_book” endpoint should return a list of all orders in the database.
+    # The response should contain a single key “data” that refers to a list of orders formatted as JSON.
+    # Each order should be a dict with (at least) the following fields
     # ("sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", “signature”).
 
     return jsonify(result)
