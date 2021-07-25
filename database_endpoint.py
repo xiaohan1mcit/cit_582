@@ -97,8 +97,6 @@ def trade():
         pk = content['payload']['sender_pk']
         platform = content['payload']['platform']
         payload_json = json.dumps(payload)
-        print(type(payload))
-        print(type(payload_json))
 
         # The platform must be either “Algorand” or "Ethereum".
         platforms = ["Algorand", "Ethereum"]
@@ -131,7 +129,7 @@ def trade():
         # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
         if result is True:
             create_session()
-            print("true")
+            print("signature verifies")
             order_obj = Order(sender_pk=payload['sender_pk'],
                               receiver_pk=payload['receiver_pk'],
                               buy_currency=payload['buy_currency'],
@@ -155,7 +153,7 @@ def trade():
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
         if result is False:
             create_session()
-            print("false")
+            print("signature does NOT verify")
             order_obj = Log(message=payload_json)
 #             print(order_obj.message)
             
@@ -177,35 +175,24 @@ def order_book():
     # ("sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", “signature”).
     print("--------- order_book ---------")
     create_session()
-
-#     order_dict_list = []
-#     orders = g.session.query(Order).all()
-#     for order in orders:
-#         order_dict_list.append(order.__dict__)
         
+    # get orders from DB into a list
     order_dict_list = [
            row2dict(order)
            for order in g.session.query(Order).all()
     ]
         
+    # add the list into a dict
     result = {
         'data': order_dict_list
     }    
             
     shutdown_session()
     
-    print(type(order_dict_list))
     print(len(order_dict_list))
-    
-    print(type(order_dict_list[-2]))
-    print(len(order_dict_list[-2]))
     print(order_dict_list[-2])
-    
-    print(type(order_dict_list[-1]))
-    print(len(order_dict_list[-1]))
     print(order_dict_list[-1])
 
-    
     return jsonify(result)
 
 
