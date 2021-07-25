@@ -146,9 +146,15 @@ def trade():
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
         if result is False:
             print("signature does NOT verify")
-            print(type(payload))
-            print(type(payload_json))
-            log_message(payload_json)
+            log_message(payload)
+            
+            create_session()
+            last_log = g.session.query(Log).order_by(Log.id.desc()).first()
+            print(type(last_log))
+            print(type(last_log.message))
+            print(last_log.message)
+            shutdown_session()
+            
             return jsonify(result)
 
         
