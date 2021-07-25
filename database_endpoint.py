@@ -189,7 +189,9 @@ def order_book():
     }
 
 #     shutdown_session()
-    return jsonify(result)
+    
+#     return jsonify(result)
+    return json.dumps(result)
 
 
 if __name__ == '__main__':
