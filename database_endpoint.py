@@ -147,15 +147,15 @@ def trade():
         if result is False:
             print("signature does NOT verify")
             
-            create_session()
-            print(str(result))
-            order_obj = Log(message=payload_json)
-            print(order_obj.message)
+#             create_session()
+#             order_obj = Log(message=payload_json)
+#             print(order_obj.message)
 
-            g.session.add(order_obj)
-            shutdown_session()
+#             g.session.add(order_obj)
+#             shutdown_session()
             
-#             log_message(payload)
+            log_message(payload_json)
+        
             
 #             create_session()
 #             last_log = g.session.query(Log).order_by(Log.id.desc()).first()
