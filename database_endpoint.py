@@ -190,6 +190,8 @@ def order_book():
     print(len(order_dict_list))
     print(order_dict_list[-2])
     print(order_dict_list[-1])
+    print(order_dict_list[-1]['buy_amount'])
+    print(type(order_dict_list[-1]['buy_amount']))
 
     shutdown_session()
     return jsonify(result)
