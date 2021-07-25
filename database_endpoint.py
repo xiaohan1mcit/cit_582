@@ -43,6 +43,7 @@ def log_message(d):
     # Takes input dictionary d and writes it to the Log table
     create_session()
     order_obj = Log(message=d)
+    g.session.add(order_obj)
     shutdown_session(order_obj)
 
 # convert a row in DB into a dict
@@ -128,8 +129,8 @@ def trade():
         # If the signature verifies, store the signature,
         # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
         if result is True:
-            create_session()
             print("signature verifies")
+            create_session()
             order_obj = Order(sender_pk=payload['sender_pk'],
                               receiver_pk=payload['receiver_pk'],
                               buy_currency=payload['buy_currency'],
@@ -144,11 +145,10 @@ def trade():
         # If the signature does not verify, do not insert the order into the “Order” table.
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
         if result is False:
-            create_session()
             print("signature does NOT verify")
-            order_obj = Log(message=payload_json)            
-            g.session.add(order_obj)
-            shutdown_session()
+            print(type(payload))
+            print(type(payload_json))
+            log_message(payload_json)
             return jsonify(result)
 
         
