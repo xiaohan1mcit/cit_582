@@ -115,12 +115,15 @@ def trade():
             if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
                 print("Eth sig verifies!")
                 result = True
+        
+        # In this assignment, you will not need to match or fill the orders,
+        # simply insert them into the database (if the signature verifies).
 
         # If the signature verifies, store the signature,
         # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
         if result is True:
             create_session()
-            print("true true")
+            print("true")
             order_obj = Order(sender_pk=payload['sender_pk'],
                               receiver_pk=payload['receiver_pk'],
                               buy_currency=payload['buy_currency'],
@@ -128,32 +131,31 @@ def trade():
                               buy_amount=payload['buy_amount'],
                               sell_amount=payload['sell_amount'],
                               signature=sig)
-            print(order_obj.sender_pk)
-            print(order_obj.receiver_pk)
-            print(order_obj.buy_currency)
-            print(order_obj.sell_currency)
-            print(order_obj.buy_amount)
-            print(order_obj.sell_amount)
-            print(order_obj.signature)
+#             print(order_obj.sender_pk)
+#             print(order_obj.receiver_pk)
+#             print(order_obj.buy_currency)
+#             print(order_obj.sell_currency)
+#             print(order_obj.buy_amount)
+#             print(order_obj.sell_amount)
+#             print(order_obj.signature)
             
             g.session.add(order_obj)
             shutdown_session()
-            jsonify(result)
+            return jsonify(result)
 
         # If the signature does not verify, do not insert the order into the “Order” table.
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
         if result is False:
             create_session()
-            print("false false")
+            print("false")
             order_obj = Log(message=payload_json)
             print(order_obj.message)
             
-            g.session.add(order_obj)
+#             g.session.add(order_obj)
             shutdown_session()
-            jsonify(result)
+            return jsonify(result)
 
-        # In this assignment, you will not need to match or fill the orders,
-        # simply insert them into the database (if the signature verifies).
+        
 
 
 @app.route('/order_book')
@@ -168,12 +170,6 @@ def order_book():
     print("--------- order_book ---------")
     create_session()
 
-    # r = g.session.query(Order).order_by(Order.id.desc()).first()
-    # print(type(r))
-    # result = r.__dict__
-    # print(type(result))
-    # print(result)
-
     order_dict_list = []
     orders = g.session.query(Order).all()
     for order in orders:
@@ -181,22 +177,15 @@ def order_book():
             
     shutdown_session()
     
-    print(len(order_dict_list))
-    print(type(order_dict_list[-2]))
-    print(order_dict_list[-2])
-    print(type(order_dict_list[-1]))
-    print(order_dict_list[-1])
+#     print(len(order_dict_list))
+#     print(type(order_dict_list[-2]))
+#     print(order_dict_list[-2])
+#     print(type(order_dict_list[-1]))
+#     print(order_dict_list[-1])
 
     result = {
         'data': order_dict_list
-    }
-    print(type(result))
-    print(len(result))
-    print(type(result['data']))
-    print(len(result['data']))
-
-    
-    
+    }    
     return jsonify(result)
 
 
