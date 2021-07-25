@@ -87,10 +87,10 @@ def trade():
         result = False
         
         if platform == "Algorand":
-        print("Algorand")
-        if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
-            print("Algo sig verifies!")
-            result = True
+            print("Algorand")
+            if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
+                print("Algo sig verifies!")
+                result = True
 
         elif platform == "Ethereum":
             print("Ethereum")
