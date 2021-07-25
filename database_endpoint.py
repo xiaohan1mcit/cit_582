@@ -45,7 +45,7 @@ def log_message(d):
     order_obj = Log(message=d)
     shutdown_session(order_obj)
 
-
+# convert a row in DB into a dict
 def row2dict(row):
     return {
         c.name: str(getattr(row, c.name))
@@ -186,13 +186,12 @@ def order_book():
     result = {
         'data': order_dict_list
     }    
-            
-    shutdown_session()
     
     print(len(order_dict_list))
     print(order_dict_list[-2])
     print(order_dict_list[-1])
 
+    shutdown_session()
     return jsonify(result)
 
 
