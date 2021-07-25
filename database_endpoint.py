@@ -145,6 +145,8 @@ def trade():
             create_session()
             print("false false")
             order_obj = Log(message=payload_json)
+            print(order_obj.message)
+            
             g.session.add(order_obj)
             shutdown_session()
             jsonify(result)
