@@ -118,8 +118,8 @@ def trade():
         # If the signature verifies, store the signature,
         # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
         if result is True:
-            print("true true")
             create_session()
+            print("true true")
             order_obj = Order(sender_pk=payload['sender_pk'],
                               receiver_pk=payload['receiver_pk'],
                               buy_currency=payload['buy_currency'],
@@ -128,18 +128,18 @@ def trade():
                               sell_amount=payload['sell_amount'],
                               signature=sig)
             g.session.add(order_obj)
-            shutdown_session("a response")
+            shutdown_session()
+            jsonify(result)
 
         # If the signature does not verify, do not insert the order into the “Order” table.
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
         if result is False:
-            print("false false")
             create_session()
+            print("false false")
             order_obj = Log(message=payload_json)
             g.session.add(order_obj)
-            shutdown_session("a response")
-
-        jsonify(True)
+            shutdown_session()
+            jsonify(result)
 
         # In this assignment, you will not need to match or fill the orders,
         # simply insert them into the database (if the signature verifies).
