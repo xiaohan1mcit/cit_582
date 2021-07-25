@@ -188,11 +188,11 @@ def order_book():
     result = {
         "data": order_dict_list
     }
+    result = json.dumps(result)
 
-#     shutdown_session()
+    shutdown_session()
     
-#     return jsonify(result)
-    return json.dumps(result)
+    return jsonify(result)
 
 
 if __name__ == '__main__':
