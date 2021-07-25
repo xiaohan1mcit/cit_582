@@ -28,8 +28,8 @@ def create_session():
 
 
 @app.teardown_appcontext
-# def shutdown_session(response_or_exc):
-def shutdown_session(exception=None):
+def shutdown_session(response_or_exc):
+# def shutdown_session(exception=None):
     g.session.commit()
     g.session.remove()
 
