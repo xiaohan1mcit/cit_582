@@ -51,7 +51,7 @@ def log_message(d):
 @app.route('/trade', methods=['POST'])
 def trade():
     if request.method == "POST":
-        print("---------haha1---------")
+        print("---------haha---------")
         content = request.get_json(silent=True)
         print(f"content = {json.dumps(content)}")
         columns = ["sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform"]
