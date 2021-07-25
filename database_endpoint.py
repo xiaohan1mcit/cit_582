@@ -101,6 +101,7 @@ def trade():
                 result = True
 
         pirnt(result)
+        jsonify(True) 
 
         
         # If the signature verifies, store the signature, 
