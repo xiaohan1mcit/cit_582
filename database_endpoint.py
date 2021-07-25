@@ -48,7 +48,7 @@ def log_message(d):
 # convert a row in DB into a dict
 def row2dict(row):
     return {
-        c.name: str(getattr(row, c.name))
+        c.name: getattr(row, c.name)
         for c in row.__table__.columns
     }
     
