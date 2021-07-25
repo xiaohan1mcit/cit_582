@@ -154,7 +154,7 @@ def trade():
 #             g.session.add(order_obj)
 #             shutdown_session()
             
-            log_message(payload_json)
+            log_message(payload)
         
             
             create_session()
