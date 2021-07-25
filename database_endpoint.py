@@ -164,9 +164,11 @@ def order_book():
     # The response should contain a single key “data” that refers to a list of orders formatted as JSON.
     # Each order should be a dict with (at least) the following fields
     # ("sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", “signature”).
+    print("--------- order_book ---------")
     create_session()
-    result = g.session.query(Order).order_by(Order.id.desc()).first()
+    result = g.session.query(Order).order_by(Order.id.desc()).first().__dict__
     print(type(result))
+    print(result)
 
     return jsonify(result)
 
