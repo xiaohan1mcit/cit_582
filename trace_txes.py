@@ -60,7 +60,7 @@ class TXO:
 #         vout = tx["vout"]
         
         amount = int(tx["vout"][n]["value"])
-        owner = tx["vout"][n]["scriptPubKey"]["asm"]
+        owner = tx["vout"][n]["scriptPubKey"]["addresses"]["address"]
         datetime_time = datetime.fromtimestamp( tx["time"] )
         txo = TXO(tx_hash, n, amount, owner, datetime_time)
         
