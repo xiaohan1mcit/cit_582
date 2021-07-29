@@ -66,6 +66,18 @@ class TXO:
         else:
             pass
 
+    def get_inputs_inner(self, d):
+      if (d > 0):
+          tx = rpc_connection.getrawtransaction(self.tx_hash, True)
+          len_vin = len(tx["vin"])
+          for i in range(0, len_vin):
+              txo = TXO.from_tx_hash(tx["vin"][i]["txid"], tx["vin"][i]["vout"])
+              print(txo)
+              self.inputs.append(txo)
+              txo.get_inputs_inner(d-1)
+      else:
+          pass
+        
     def get_inputs(self,d=1):
         
         #YOUR CODE HERE
@@ -74,13 +86,4 @@ class TXO:
         #In other words, if   d=1  it should create TXO objects to populate self.inputs with the appropriate TXO objects. 
         #If   d=2  it should also populate the inputs field of each of the TXOs in self.inputs etc.
         #it does not return any objects. It operates on the object passed to it (self argument)
-        
-        tx = rpc_connection.getrawtransaction(self.tx_hash, True)
-        len_vin = len(tx["vin"])
-        print(len_vin)
-        
-        print(tx["vin"][0])
-        
-        for i in range(0, len_vin):
-          txo = TXO.from_tx_hash(tx["vin"][i]["txid"], 0)
-          self.inputs.append(txo)
+        self.get_inputs_inner(d)
