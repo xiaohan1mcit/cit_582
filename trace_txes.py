@@ -75,4 +75,12 @@ class TXO:
         #If   d=2  it should also populate the inputs field of each of the TXOs in self.inputs etc.
         #it does not return any objects. It operates on the object passed to it (self argument)
         
-        pass
+        tx = rpc_connection.getrawtransaction(self.tx_hash, True)
+        len_vin = len(tx["vin"])
+        print(len_vin)
+        
+        print(tx["vin"][0])
+        
+        for i in range(0, len_vin):
+          txo = TXO.from_tx_hash(tx["vin"][i]["txid"], 0)
+          self.inputs.append(txo)
