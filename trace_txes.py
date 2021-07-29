@@ -42,48 +42,43 @@ class TXO:
                 json_dict.update( {'inputs': json.loads(txo.to_json()) } )
         return json.dumps(json_dict, sort_keys=True, indent=4)
 
+        # this classmethod should connect to the Bitcoin blockchain,
+    # and retrieve the n'th output of the transaction with the given hash.
+    # Then it should create and return a new object with the fields, 'tx_hash’, 'n’, 'amount’, ‘owner’ and ‘time’
+    # set to the values retrieved from the blockchain.
+    # This method does not need to initialize the list 'inputs’.
+    # Note that the ‘time’ field should be converted to a datetime object (using the datetime.fromtimestamp method)
     @classmethod
-    def from_tx_hash(cls,tx_hash,n=0):
-        
-        #this classmethod should connect to the Bitcoin blockchain, 
-        #and retrieve the n'th output of the transaction with the given hash. 
-        #Then it should create and return a new object with the fields, 'tx_hash’, 'n’, 'amount’, ‘owner’ and ‘time’ 
-        #set to the values retrieved from the blockchain. 
-        #This method does not need to initialize the list 'inputs’. 
-        #Note that the ‘time’ field should be converted to a datetime object (using the datetime.fromtimestamp method)
-        
+    def from_tx_hash(cls, tx_hash, n=0):
         # get tx from the Bitcoin blockchain
         tx = rpc_connection.getrawtransaction(tx_hash, True)
-        
-        #check number of output txes
-        if (n < len(tx["vout"])):
-            amount = int(tx["vout"][n]["value"] * (10**8))
+
+        # check if n in within range of number of output tx
+        if n < len(tx["vout"]):
+            # create a new TXO and return it
+            amount = int(tx["vout"][n]["value"] * (10 ** 8))
             owner = tx["vout"][n]["scriptPubKey"]["addresses"][0]
-            datetime_time = datetime.fromtimestamp( tx["time"] )
+            datetime_time = datetime.fromtimestamp(tx["time"])
             txo = TXO(tx_hash, n, amount, owner, datetime_time)
             return txo
-        
         else:
             pass
 
-    def get_inputs_inner(self, d):
-      if (d > 0):
-          tx = rpc_connection.getrawtransaction(self.tx_hash, True)
-          len_vin = len(tx["vin"])
-          for i in range(0, len_vin):
-              txo = TXO.from_tx_hash(tx["vin"][i]["txid"], tx["vin"][i]["vout"])
-              print(txo)
-              self.inputs.append(txo)
-              txo.get_inputs_inner(d-1)
-      else:
-          pass
-        
-    def get_inputs(self,d=1):
-        
-        #YOUR CODE HERE
-        #this method should connect to the Bitcoin blockchain, 
-        #and populate the list of inputs, up to a depth   d . 
-        #In other words, if   d=1  it should create TXO objects to populate self.inputs with the appropriate TXO objects. 
-        #If   d=2  it should also populate the inputs field of each of the TXOs in self.inputs etc.
-        #it does not return any objects. It operates on the object passed to it (self argument)
-        self.get_inputs_inner(d)
+    # def get_inputs_inner(self, d):
+
+    # this method should connect to the Bitcoin blockchain,
+    # and populate the list of inputs, up to a depth   d .
+    # In other words, if   d=1  it should create TXO objects to populate self.inputs with the appropriate TXO objects.
+    # If   d=2  it should also populate the inputs field of each of the TXOs in self.inputs etc.
+    # it does not return any objects. It operates on the object passed to it (self argument)
+    def get_inputs(self, d=1):
+        if d > 0:
+            tx = rpc_connection.getrawtransaction(self.tx_hash, True)
+            len_vin = len(tx["vin"])
+            for i in range(0, len_vin):
+                txo = TXO.from_tx_hash(tx["vin"][i]["txid"], tx["vin"][i]["vout"])
+                print(txo)
+                self.inputs.append(txo)
+                txo.get_inputs(d - 1)
+        else:
+            pass
