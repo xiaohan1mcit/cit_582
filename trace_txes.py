@@ -59,7 +59,7 @@ class TXO:
         tx = rpc_connection.getrawtransaction(tx_hash, True)
 #         vout = tx["vout"]
         
-        amount = tx["vout"][n]["value"]
+        amount = int(tx["vout"][n]["value"] * (10**8))
         owner = tx["vout"][n]["scriptPubKey"]["addresses"][0]
         datetime_time = datetime.fromtimestamp( tx["time"] )
         txo = TXO(tx_hash, n, amount, owner, datetime_time)
