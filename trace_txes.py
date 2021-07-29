@@ -51,21 +51,20 @@ class TXO:
         #set to the values retrieved from the blockchain. 
         #This method does not need to initialize the list 'inputs’. 
         #Note that the ‘time’ field should be converted to a datetime object (using the datetime.fromtimestamp method)
-        #
-        #get information about any given transaction
-        #returns a Python dict containing all the information about the transaction specified by tx_hash
-        #tx = rpc_connection.getrawtransaction(tx_hash,True)
         
+        # get tx from the Bitcoin blockchain
         tx = rpc_connection.getrawtransaction(tx_hash, True)
-#         vout = tx["vout"]
         
-        #check number of output tx
+        #check number of output txes
         if (n < len(tx["vout"])):
             amount = int(tx["vout"][n]["value"] * (10**8))
             owner = tx["vout"][n]["scriptPubKey"]["addresses"][0]
             datetime_time = datetime.fromtimestamp( tx["time"] )
             txo = TXO(tx_hash, n, amount, owner, datetime_time)
             return txo
+        
+        else:
+            pass
 
     def get_inputs(self,d=1):
         
