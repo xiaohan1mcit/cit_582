@@ -59,12 +59,13 @@ class TXO:
         tx = rpc_connection.getrawtransaction(tx_hash, True)
 #         vout = tx["vout"]
         
-        amount = int(tx["vout"][n]["value"] * (10**8))
-        owner = tx["vout"][n]["scriptPubKey"]["addresses"][0]
-        datetime_time = datetime.fromtimestamp( tx["time"] )
-        txo = TXO(tx_hash, n, amount, owner, datetime_time)
-        
-        return txo
+        #check number of output tx
+        if (n < len(tx["vout"])):
+            amount = int(tx["vout"][n]["value"] * (10**8))
+            owner = tx["vout"][n]["scriptPubKey"]["addresses"][0]
+            datetime_time = datetime.fromtimestamp( tx["time"] )
+            txo = TXO(tx_hash, n, amount, owner, datetime_time)
+            return txo
 
     def get_inputs(self,d=1):
         
