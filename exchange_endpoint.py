@@ -275,9 +275,9 @@ def order_book():
     print("order book length: ")
     print(len(order_dict_list))
     print(order_dict_list[-2]['creator_id'])
-    print(order_dict_list[-2]['child'])
+#     print(order_dict_list[-2]['child'])
     print(order_dict_list[-1]['creator_id'])
-    print(order_dict_list[-2]['child'])
+#     print(order_dict_list[-2]['child'])
 
     shutdown_session()
     return jsonify(result)
