@@ -87,6 +87,37 @@ def trade():
 
         # TODO: Check the signature
         
+        # extract contents from json
+        sig = content['sig']
+        payload = content['payload']
+        pk = content['payload']['sender_pk']
+        platform = content['payload']['platform']
+        payload_json = json.dumps(payload)
+
+        # The platform must be either “Algorand” or "Ethereum".
+        platforms = ["Algorand", "Ethereum"]
+        if not platform in platforms:
+            print("input platform is not Algorand or Ethereum")
+            return jsonify(False)
+
+        # check whether “sig” is a valid signature of json.dumps(payload),
+        # using the signature algorithm specified by the platform field.
+        # Be sure to verify the payload using the sender_pk.
+        result = False
+
+        if platform == "Algorand":
+            print("Algorand")
+            if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
+                print("Algo sig verifies!")
+                result = True
+
+        elif platform == "Ethereum":
+            print("Ethereum")
+            eth_encoded_msg = eth_account.messages.encode_defunct(text=payload_json)
+            if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
+                print("Eth sig verifies!")
+                result = True
+        
         # TODO: Add the order to the database
         
         # TODO: Fill the order
