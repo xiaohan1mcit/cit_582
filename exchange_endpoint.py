@@ -68,7 +68,7 @@ def check_sig(payload,sig):
 
 # the inner recursive function
 def fill_order():
-    create_session()
+    
     # get the order you just inserted from the DB
     current_order = g.session.query(Order).order_by(Order.id.desc()).first()
     # print("_order_id")
@@ -123,8 +123,8 @@ def fill_order():
                               sell_amount=sell_amount_new_match,
                               creator_id=match_order.id)
             g.session.add(new_order)
-            shutdown_session()
-#             session.commit()
+#             shutdown_session()
+            g.session.commit()
             fill_order()
 
         # If current_order is not completely filled
@@ -145,8 +145,8 @@ def fill_order():
                               sell_amount=sell_amount_new_current,
                               creator_id=current_order.id)
             g.session.add(new_order)
-#             session.commit()
-            shutdown_session()
+            g.session.commit()
+#             shutdown_session()
             fill_order()
 
 
@@ -245,9 +245,11 @@ def trade():
                               sell_amount=payload['sell_amount'],
                               signature=sig)            
             g.session.add(order_obj)
-            shutdown_session()
+            
             
             fill_order()
+            
+            shutdown_session()
             
             return jsonify(result)
         
