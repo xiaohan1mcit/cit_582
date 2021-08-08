@@ -10,7 +10,15 @@ tokenB: ERC20 #The ERC20 contract for tokenB
 	
 owner: public(address) #The liquidity provider (the address that has the right to withdraw funds and close the contract)
 
-	
+
+
+# ERC20 library 
+# (https://github.com/vyperlang/vyper/blob/master/examples/tokens/ERC20.vy)
+
+# example Automated Market Maker (AMM) contract that trade ETH to ECR 
+# (https://github.com/vyperlang/vyper/blob/master/examples/market_maker/on_chain_market_maker.vy)
+
+
 	
 	
 @external
