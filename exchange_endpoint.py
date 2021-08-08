@@ -99,8 +99,8 @@ def fill_order():
         current_order.filled = datetime.now()
         match_order.counterparty_id = current_order.id
         current_order.counterparty_id = match_order.id
-#         g.session.commit()
-        shutdown_session()
+        g.session.commit()
+#         shutdown_session()
 
         # if both orders can completely fill each other
         # no child order needs to be generated
@@ -114,7 +114,7 @@ def fill_order():
             # print(match_order.id)
             # print(diff)
             # print(sell_amount_new_match)
-            create_session()
+#             create_session()
             new_order = Order(sender_pk=match_order.sender_pk,
                               receiver_pk=match_order.receiver_pk,
                               buy_currency=match_order.buy_currency,
@@ -136,7 +136,7 @@ def fill_order():
             # print(current_order.id)
             # print(diff)
             # print(sell_amount_new_current)
-            create_session()
+#             create_session()
             new_order = Order(sender_pk=current_order.sender_pk,
                               receiver_pk=current_order.receiver_pk,
                               buy_currency=current_order.buy_currency,
