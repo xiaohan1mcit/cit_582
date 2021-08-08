@@ -168,6 +168,7 @@ def row2dict(row):
         for c in row.__table__.columns
     }
 
+# print a dictionary nicely
 def print_dict(d):
     for key, value in d.items():
         print(key, ' : ', value)
@@ -281,12 +282,12 @@ def order_book():
     print("order book length: ")
     print(len(order_dict_list))
     print()
-    print_dict(order_dict_list[-2])
+#     print_dict(order_dict_list[-2])
     print()
 #     print(order_dict_list[-2])
 #     print(order_dict_list[-2]['creator_id'])
 #     print(order_dict_list[-2]['child'])
-    print_dict(order_dict_list[-1])
+#     print_dict(order_dict_list[-1])
     print()
 #     print(order_dict_list[-1])
 #     print(order_dict_list[-1]['creator_id'])
