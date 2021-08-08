@@ -36,22 +36,16 @@ def shutdown_session(exception=None):
 """ Suggested helper methods """
 
 
+# check whether “sig” is a valid signature of json.dumps(payload),
+# using the signature algorithm specified by the platform field.
+# Be sure to verify the payload using the sender_pk.
 def check_sig(payload,sig):
     
     pk = payload['sender_pk']
     platform = payload['platform']
     payload_json = json.dumps(payload)
     result = False
-
-    # The platform must be either “Algorand” or "Ethereum".
-    platforms = ["Algorand", "Ethereum"]
-    if not platform in platforms:
-        print("input platform is not Algorand or Ethereum")
-        result = False
-
-    # check whether “sig” is a valid signature of json.dumps(payload),
-    # using the signature algorithm specified by the platform field.
-    # Be sure to verify the payload using the sender_pk.
+    
     if platform == "Algorand":
         print("Algorand")
         if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
@@ -121,25 +115,24 @@ def trade():
         #Your code here
         #Note that you can access the database session using g.session
 
-        # TODO: Check the signature
+        # TODO 1: Check the signature
+        
         # extract contents from json
         sig = content['sig']
         payload = content['payload']
-        
-        pk = payload['sender_pk']
         platform = payload['platform']
-        payload_json = json.dumps(payload)
-        result = False
 
         # The platform must be either “Algorand” or "Ethereum".
         platforms = ["Algorand", "Ethereum"]
         if not platform in platforms:
             print("input platform is not Algorand or Ethereum")
             return jsonify(False)
-            
+        
+        # check signature
         result = check_sig(payload,sig)
 
-        # TODO: Add the order to the database
+        # TODO 2: Add the order to the database
+        
         # If the signature does not verify, do not insert the order into the “Order” table.
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
         if result is False:
