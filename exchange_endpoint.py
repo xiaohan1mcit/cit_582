@@ -104,7 +104,7 @@ def fill_order():
         # no child order needs to be generated
 
         # If match_order is not completely filled
-        if (current_order.sell_amount < match_order.buy_amount):
+        if (current_order.sell_amount < existing_order.buy_amount):
             # print("_match_order is not completely filled")
             diff = match_order.buy_amount - current_order.sell_amount
             exchange_rate_match = match_order.sell_amount / match_order.buy_amount
@@ -124,7 +124,7 @@ def fill_order():
             fill_order()
 
         # If current_order is not completely filled
-        if (current_order.buy_amount > match_order.sell_amount):
+        if (current_order.buy_amount > existing_order.sell_amount):
             # print("_current_order is not completely filled")
             diff = current_order.buy_amount - match_order.sell_amount
             exchange_rate_current = current_order.buy_amount / current_order.sell_amount
