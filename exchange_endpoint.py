@@ -18,12 +18,16 @@ DBSession = sessionmaker(bind=engine)
 
 app = Flask(__name__)
 
+# These decorators allow you to use g.session to access the database inside the request code
+# g is an "application global" https://flask.palletsprojects.com/en/1.1.x/api/#application-globals
+
 @app.before_request
 def create_session():
-    g.session = scoped_session(DBSession)
+    g.session = scoped_session(DBSession) 
 
 @app.teardown_appcontext
-def shutdown_session(response_or_exc):
+# def shutdown_session(response_or_exc):
+def shutdown_session(exception=None):
     sys.stdout.flush()
     g.session.commit()
     g.session.remove()
@@ -31,19 +35,25 @@ def shutdown_session(response_or_exc):
 
 """ Suggested helper methods """
 
+
 def check_sig(payload,sig):
     pass
 
 def fill_order(order,txes=[]):
     pass
   
+
+# Takes input dictionary d and writes it to the Log table
+# Hint: use json.dumps or str() to get it in a nice string form
 def log_message(d):
-    # Takes input dictionary d and writes it to the Log table
-    # Hint: use json.dumps or str() to get it in a nice string form
-    pass
+    create_session()
+    order_obj = Log(message=d)
+    g.session.add(order_obj)
+    shutdown_session()
+#     pass
+
 
 """ End of helper methods """
-
 
 
 @app.route('/trade', methods=['POST'])
