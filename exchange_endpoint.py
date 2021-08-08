@@ -240,7 +240,6 @@ def trade():
                               signature=sig)            
             g.session.add(order_obj)
             
-#             fill_order()
             shutdown_session()
             return jsonify(result)
         
