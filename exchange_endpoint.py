@@ -120,6 +120,29 @@ def trade():
         
         # TODO: Add the order to the database
         
+        # If the signature does not verify, do not insert the order into the “Order” table.
+        # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
+        if result is False:
+            print("signature does NOT verify")
+            log_message(payload_json)            
+            return jsonify(result)
+        
+        # If the signature verifies, store the signature,
+        # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
+        if result is True:
+            print("signature verifies")
+            create_session()
+            order_obj = Order(sender_pk=payload['sender_pk'],
+                              receiver_pk=payload['receiver_pk'],
+                              buy_currency=payload['buy_currency'],
+                              sell_currency=payload['sell_currency'],
+                              buy_amount=payload['buy_amount'],
+                              sell_amount=payload['sell_amount'],
+                              signature=sig)            
+            g.session.add(order_obj)
+            shutdown_session()
+            return jsonify(result)
+        
         # TODO: Fill the order
         
         # TODO: Be sure to return jsonify(True) or jsonify(False) depending on if the method was successful
