@@ -125,7 +125,7 @@ def fill_order():
             g.session.add(new_order)
             shutdown_session()
 #             session.commit()
-            process_order_inner()
+            fill_order()
 
         # If current_order is not completely filled
         if (current_order.buy_amount > match_order.sell_amount):
@@ -147,7 +147,7 @@ def fill_order():
             g.session.add(new_order)
 #             session.commit()
             shutdown_session()
-            process_order_inner()
+            fill_order()
 
 
 
