@@ -67,9 +67,45 @@ def provideLiquidity(tokenA_addr: address,
 # and “amount” should be the amount of that token being traded to the contract. 
 # The contract should calculate the amount of the other token to return to the sender using the invariant calculation of Uniswap.
 @external
-def tradeTokens(sell_token: address, sell_quantity: uint256):
+def tradeTokens(sell_token: address, 
+		sell_quantity: uint256):
 	assert sell_token == self.tokenA.address or sell_token == self.tokenB.address
 	#Your code here
+	if sell_token == self.tokenA.address:
+		self.tokenA.transferFrom(msg.sender, self, sell_quantity)
+		new_total_A: uint256 = self.tokenAQty + sell_quantity
+		new_total_B: uint256 = self.invariant / new_total_A
+		self.tokenB.transfer(msg.sender, self.tokenBQty - new_total_B)
+		self.tokenAQty = new_total_A
+		self.tokenBQty = new_total_B
+
+	
+	
+# # Sells ether to the contract in exchange for tokens (minus a fee)
+# def ethToTokens():
+#     eth_in_purchase: uint256 = msg.value
+	
+#     new_total_eth: uint256 = self.totalEthQty + eth_in_purchase
+#     new_total_tokens: uint256 = self.invariant / new_total_eth
+	
+#     self.token_address.transfer(msg.sender, self.totalTokenQty - new_total_tokens)
+
+#     self.totalEthQty = new_total_eth
+#     self.totalTokenQty = new_total_tokens
+
+# # Sells tokens to the contract in exchange for ether
+# @external
+# def tokensToEth(sell_quantity: uint256):
+#     self.token_address.transferFrom(msg.sender, self, sell_quantity)
+
+#     new_total_tokens: uint256 = self.totalTokenQty + sell_quantity
+#     new_total_eth: uint256 = self.invariant / new_total_tokens
+	
+#     eth_to_send: uint256 = self.totalEthQty - new_total_eth
+#     send(msg.sender, eth_to_send)
+
+#     self.totalEthQty = new_total_eth
+#     self.totalTokenQty = new_total_tokens
 
 	
 	
