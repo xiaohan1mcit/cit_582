@@ -46,6 +46,11 @@ def check_sig(payload,sig):
     payload_json = json.dumps(payload)
     result = False
     
+    platforms = ["Algorand", "Ethereum"]
+        if not platform in platforms:
+            print("input platform is not Algorand or Ethereum")
+            return jsonify(False)
+    
     if platform == "Algorand":
         print("Algorand")
         if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
