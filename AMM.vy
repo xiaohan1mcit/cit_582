@@ -38,21 +38,15 @@ def provideLiquidity(tokenA_addr: address,
 	assert self.invariant == 0 #This ensures that liquidity can only be provided once
 	
 	#Your code here
-	
-# 	self.token_address = ERC20(token_addr)
-# 	self.token_address.transferFrom(msg.sender, self, token_quantity)
-	
-# 	self.owner = msg.sender
-# 	self.totalEthQty = msg.value
-# 	self.totalTokenQty = token_quantity
-# 	self.invariant = msg.value * token_quantity
-	
+	# send the address of A and B
 	self.tokenA = ERC20(tokenA_addr)
 	self.tokenB = ERC20(tokenB_addr)
 	
+	# drag the input amount of A and B from message sender
 	self.tokenA.transferFrom(msg.sender, self, tokenA_quantity)
 	self.tokenB.transferFrom(msg.sender, self, tokenB_quantity)
 	
+	# set owner, amount of A and B, and invariant at the Automated Market Maker (AMM) contract 
 	self.owner = msg.sender
 	self.tokenAQty = tokenA_quantity
 	self.tokenBQty = tokenB_quantity
@@ -70,50 +64,34 @@ def provideLiquidity(tokenA_addr: address,
 def tradeTokens(sell_token: address, 
 		sell_quantity: uint256):
 	assert sell_token == self.tokenA.address or sell_token == self.tokenB.address
+	
 	#Your code here
+	# if message sender want to sell A for B
 	if sell_token == self.tokenA.address:
+		# drag the input amount of A from message sender 
 		self.tokenA.transferFrom(msg.sender, self, sell_quantity)
+		# set new amount of A and calculate new amount of B
 		new_total_A: uint256 = self.tokenAQty + sell_quantity
 		new_total_B: uint256 = self.invariant / new_total_A
+		# send the extra amount of B back to message sender 
 		self.tokenB.transfer(msg.sender, self.tokenBQty - new_total_B)
+		# set new amount of A and B at the Automated Market Maker (AMM) contract 
 		self.tokenAQty = new_total_A
 		self.tokenBQty = new_total_B
 		
+	# if message sender want to sell B for A
 	if sell_token == self.tokenB.address:
+		# drag the input amount of B from message sender 
 		self.tokenB.transferFrom(msg.sender, self, sell_quantity)
+		# set new amount of B and calculate new amount of A
 		new_total_B: uint256 = self.tokenBQty + sell_quantity
 		new_total_A: uint256 = self.invariant / new_total_B
+		# send the extra amount of A back to message sender 
 		self.tokenA.transfer(msg.sender, self.tokenAQty - new_total_A)
+		# set new amount of A and B at the Automated Market Maker (AMM) contract 
 		self.tokenAQty = new_total_A
 		self.tokenBQty = new_total_B
 
-	
-	
-# # Sells ether to the contract in exchange for tokens (minus a fee)
-# def ethToTokens():
-#     eth_in_purchase: uint256 = msg.value
-	
-#     new_total_eth: uint256 = self.totalEthQty + eth_in_purchase
-#     new_total_tokens: uint256 = self.invariant / new_total_eth
-	
-#     self.token_address.transfer(msg.sender, self.totalTokenQty - new_total_tokens)
-
-#     self.totalEthQty = new_total_eth
-#     self.totalTokenQty = new_total_tokens
-
-# # Sells tokens to the contract in exchange for ether
-# @external
-# def tokensToEth(sell_quantity: uint256):
-#     self.token_address.transferFrom(msg.sender, self, sell_quantity)
-
-#     new_total_tokens: uint256 = self.totalTokenQty + sell_quantity
-#     new_total_eth: uint256 = self.invariant / new_total_tokens
-	
-#     eth_to_send: uint256 = self.totalEthQty - new_total_eth
-#     send(msg.sender, eth_to_send)
-
-#     self.totalEthQty = new_total_eth
-#     self.totalTokenQty = new_total_tokens
 
 	
 	
@@ -124,6 +102,7 @@ def tradeTokens(sell_token: address,
 def ownerWithdraw():
 	assert self.owner == msg.sender
 	#Your code here
+	# send the total amount of A and B currently at the Automated Market Maker (AMM) contract back to message sender 
 	self.tokenA.transfer(self.owner, self.tokenAQty)
 	self.tokenB.transfer(self.owner, self.tokenBQty)
 	selfdestruct(self.owner)
