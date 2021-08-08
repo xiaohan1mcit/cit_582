@@ -98,8 +98,9 @@ def trade():
         # extract contents from json
         sig = content['sig']
         payload = content['payload']
-        pk = content['payload']['sender_pk']
-        platform = content['payload']['platform']
+        
+        pk = payload['sender_pk']
+        platform = payload['platform']
         payload_json = json.dumps(payload)
 
         # The platform must be either “Algorand” or "Ethereum".
@@ -125,6 +126,14 @@ def trade():
             if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
                 print("Eth sig verifies!")
                 result = True
+        
+        
+        
+        
+        
+        
+        
+        
         
         # TODO: Add the order to the database
         
