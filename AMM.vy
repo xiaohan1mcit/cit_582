@@ -51,5 +51,7 @@ def tradeTokens(sell_token: address, sell_quantity: uint256):
 # this should give all tokens held by the contract to the message sender, otherwise it should fail.
 @external
 def ownerWithdraw():
-    assert self.owner == msg.sender
+	assert self.owner == msg.sender
 	#Your code here
+	self.token_address.transfer(self.owner, self.totalTokenQty)
+	selfdestruct(self.owner)
