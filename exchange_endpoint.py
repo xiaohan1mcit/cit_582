@@ -121,7 +121,7 @@ def fill_order():
                               creator_id=match_order.id)
             g.session.add(new_order)
             g.session.commit()
-            print("match_order is not completely filled")
+            print("M")
             fill_order()
 
         # If current_order is not completely filled
@@ -142,7 +142,7 @@ def fill_order():
                               creator_id=current_order.id)
             g.session.add(new_order)
             g.session.commit()
-            print("current_order is not completely filled")
+            print("C")
             fill_order()
 
 
