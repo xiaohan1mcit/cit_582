@@ -53,6 +53,14 @@ def log_message(d):
 #     pass
 
 
+# convert a row in DB into a dict
+def row2dict(row):
+    return {
+        c.name: getattr(row, c.name)
+        for c in row.__table__.columns
+    }
+
+
 """ End of helper methods """
 
 
@@ -152,7 +160,33 @@ def trade():
 def order_book():
     #Your code here
     #Note that you can access the database session using g.session
+    
+    # The “/order_book” endpoint should return a list of all orders in the database.
+    # The response should contain a single key “data” that refers to a list of orders formatted as JSON.
+    # Each order should be a dict with (at least) the following fields
+    # ("sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", “signature”).
+    print("--------- order_book ---------")
+    create_session()
+        
+    # get orders from DB into a list
+    order_dict_list = [
+           row2dict(order)
+           for order in g.session.query(Order).all()
+    ]
+        
+    # add the list into a dict
+    result = {
+        'data': order_dict_list
+    }    
+    
+    print("order book length: ")
+    print(len(order_dict_list))
+    print(order_dict_list[-2])
+    print(order_dict_list[-1])
+
+    shutdown_session()
     return jsonify(result)
+    
 
 if __name__ == '__main__':
     app.run(port='5002')
