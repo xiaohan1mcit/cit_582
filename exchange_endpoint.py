@@ -121,6 +121,7 @@ def fill_order():
                               creator_id=match_order.id)
             g.session.add(new_order)
             g.session.commit()
+            print("A")
             fill_order()
 
         # If current_order is not completely filled
@@ -141,6 +142,7 @@ def fill_order():
                               creator_id=current_order.id)
             g.session.add(new_order)
             g.session.commit()
+            print("B")
             fill_order()
 
 
@@ -274,9 +276,11 @@ def order_book():
     
     print("order book length: ")
     print(len(order_dict_list))
-    print(order_dict_list[-2]['creator_id'])
+    print(order_dict_list[-2])
+#     print(order_dict_list[-2]['creator_id'])
 #     print(order_dict_list[-2]['child'])
-    print(order_dict_list[-1]['creator_id'])
+    print(order_dict_list[-1])
+#     print(order_dict_list[-1]['creator_id'])
 #     print(order_dict_list[-2]['child'])
 
     shutdown_session()
