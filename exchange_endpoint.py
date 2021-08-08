@@ -59,7 +59,7 @@ def check_sig(payload,sig):
             print("Eth sig verifies!")
             result = True
     
-    return result
+    return result, payload_json
 
 
 def fill_order(order,txes=[]):
