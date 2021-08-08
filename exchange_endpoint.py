@@ -68,14 +68,15 @@ def check_sig(payload,sig):
 
 # the inner recursive function
 def fill_order():
+    create_session()
     # get the order you just inserted from the DB
-    current_order = session.query(Order).order_by(Order.id.desc()).first()
+    current_order = g.session.query(Order).order_by(Order.id.desc()).first()
     # print("_order_id")
     # print(current_order.id)
 
     # Check if there are any existing orders that match and add them into a list
     order_list = []
-    orders = session.query(Order).filter(Order.filled == None).all()
+    orders = g.session.query(Order).filter(Order.filled == None).all()
     for existing_order in orders:
         # if ((existing_order.buy_amount != 0) and (current_order.sell_amount != 0)):
         if ((existing_order.buy_currency == current_order.sell_currency)
@@ -98,7 +99,8 @@ def fill_order():
         current_order.filled = datetime.now()
         match_order.counterparty_id = current_order.id
         current_order.counterparty_id = match_order.id
-        session.commit()
+#         g.session.commit()
+        shutdown_session()
 
         # if both orders can completely fill each other
         # no child order needs to be generated
@@ -112,6 +114,7 @@ def fill_order():
             # print(match_order.id)
             # print(diff)
             # print(sell_amount_new_match)
+            create_session()
             new_order = Order(sender_pk=match_order.sender_pk,
                               receiver_pk=match_order.receiver_pk,
                               buy_currency=match_order.buy_currency,
@@ -119,8 +122,9 @@ def fill_order():
                               buy_amount=diff,
                               sell_amount=sell_amount_new_match,
                               creator_id=match_order.id)
-            session.add(new_order)
-            session.commit()
+            g.session.add(new_order)
+            shutdown_session()
+#             session.commit()
             process_order_inner()
 
         # If current_order is not completely filled
@@ -132,6 +136,7 @@ def fill_order():
             # print(current_order.id)
             # print(diff)
             # print(sell_amount_new_current)
+            create_session()
             new_order = Order(sender_pk=current_order.sender_pk,
                               receiver_pk=current_order.receiver_pk,
                               buy_currency=current_order.buy_currency,
@@ -139,8 +144,9 @@ def fill_order():
                               buy_amount=diff,
                               sell_amount=sell_amount_new_current,
                               creator_id=current_order.id)
-            session.add(new_order)
-            session.commit()
+            g.session.add(new_order)
+#             session.commit()
+            shutdown_session()
             process_order_inner()
 
 
