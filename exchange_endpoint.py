@@ -50,11 +50,13 @@ def log_message(d):
 def trade():
     print("In trade endpoint")
     if request.method == "POST":
+        print("--------- trade ---------")
         content = request.get_json(silent=True)
         print( f"content = {json.dumps(content)}" )
         columns = [ "sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform" ]
         fields = [ "sig", "payload" ]
 
+        # check whether the input contains both "sig" and "payload"
         for field in fields:
             if not field in content.keys():
                 print( f"{field} not received by Trade" )
@@ -62,6 +64,7 @@ def trade():
                 log_message(content)
                 return jsonify( False )
         
+        # check whether the input contains all 7 fields of payload
         for column in columns:
             if not column in content['payload'].keys():
                 print( f"{column} not received by Trade" )
