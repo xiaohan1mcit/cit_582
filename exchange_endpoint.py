@@ -62,6 +62,13 @@ def check_sig(payload,sig):
     return result, payload_json
 
 
+
+
+
+
+
+
+
 # def fill_order(order,txes=[]):
 #     pass
 
@@ -173,7 +180,11 @@ def print_dict(d):
     for key, value in d.items():
         print(key, ' : ', value)
 
+        
+        
+        
 
+        
 """ End of helper methods """
 
 
@@ -225,6 +236,7 @@ def trade():
         payload_json = check_result[1]
         
         # TODO 2: Add the order to the database
+        # TODO 4: Be sure to return jsonify(True) or jsonify(False) depending on if the method was successful
         
         # If the signature does not verify, do not insert the order into the “Order” table.
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
@@ -247,13 +259,13 @@ def trade():
                               signature=sig)            
             g.session.add(order_obj)
             
+            # TODO 3: Fill the order
             fill_order()
             shutdown_session()
             return jsonify(result)
         
-        # TODO: Fill the order
         
-        # TODO: Be sure to return jsonify(True) or jsonify(False) depending on if the method was successful
+        
         
 
 @app.route('/order_book')
@@ -281,21 +293,13 @@ def order_book():
     
     print("order book length: ")
     print(len(order_dict_list))
-    print()
-#     print_dict(order_dict_list[-2])
-    print()
-#     print(order_dict_list[-2])
-#     print(order_dict_list[-2]['creator_id'])
-#     print(order_dict_list[-2]['child'])
-#     print_dict(order_dict_list[-1])
-    print()
-#     print(order_dict_list[-1])
-#     print(order_dict_list[-1]['creator_id'])
-#     print(order_dict_list[-2]['child'])
+    # print_dict(order_dict_list[-2])
+    # print_dict(order_dict_list[-1])
 
     shutdown_session()
     return jsonify(result)
     
 
+    
 if __name__ == '__main__':
     app.run(port='5002')
