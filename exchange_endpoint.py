@@ -37,7 +37,36 @@ def shutdown_session(exception=None):
 
 
 def check_sig(payload,sig):
-    pass
+    
+    pk = payload['sender_pk']
+    platform = payload['platform']
+    payload_json = json.dumps(payload)
+    result = False
+
+    # The platform must be either “Algorand” or "Ethereum".
+    platforms = ["Algorand", "Ethereum"]
+    if not platform in platforms:
+        print("input platform is not Algorand or Ethereum")
+        result = False
+
+    # check whether “sig” is a valid signature of json.dumps(payload),
+    # using the signature algorithm specified by the platform field.
+    # Be sure to verify the payload using the sender_pk.
+    if platform == "Algorand":
+        print("Algorand")
+        if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
+            print("Algo sig verifies!")
+            result = True
+
+    elif platform == "Ethereum":
+        print("Ethereum")
+        eth_encoded_msg = eth_account.messages.encode_defunct(text=payload_json)
+        if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
+            print("Eth sig verifies!")
+            result = True
+    
+    return result
+
 
 def fill_order(order,txes=[]):
     pass
@@ -50,7 +79,6 @@ def log_message(d):
     order_obj = Log(message=d)
     g.session.add(order_obj)
     shutdown_session()
-#     pass
 
 
 # convert a row in DB into a dict
@@ -94,49 +122,12 @@ def trade():
         #Note that you can access the database session using g.session
 
         # TODO: Check the signature
-        
         # extract contents from json
         sig = content['sig']
         payload = content['payload']
-        
-        pk = payload['sender_pk']
-        platform = payload['platform']
-        payload_json = json.dumps(payload)
+        result = check_sig(payload,sig)
 
-        # The platform must be either “Algorand” or "Ethereum".
-        platforms = ["Algorand", "Ethereum"]
-        if not platform in platforms:
-            print("input platform is not Algorand or Ethereum")
-            return jsonify(False)
-
-        # check whether “sig” is a valid signature of json.dumps(payload),
-        # using the signature algorithm specified by the platform field.
-        # Be sure to verify the payload using the sender_pk.
-        result = False
-
-        if platform == "Algorand":
-            print("Algorand")
-            if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
-                print("Algo sig verifies!")
-                result = True
-
-        elif platform == "Ethereum":
-            print("Ethereum")
-            eth_encoded_msg = eth_account.messages.encode_defunct(text=payload_json)
-            if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
-                print("Eth sig verifies!")
-                result = True
-        
-        
-        
-        
-        
-        
-        
-        
-        
         # TODO: Add the order to the database
-        
         # If the signature does not verify, do not insert the order into the “Order” table.
         # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
         if result is False:
