@@ -125,6 +125,18 @@ def trade():
         # extract contents from json
         sig = content['sig']
         payload = content['payload']
+        
+        pk = payload['sender_pk']
+        platform = payload['platform']
+        payload_json = json.dumps(payload)
+        result = False
+
+        # The platform must be either “Algorand” or "Ethereum".
+        platforms = ["Algorand", "Ethereum"]
+        if not platform in platforms:
+            print("input platform is not Algorand or Ethereum")
+            return jsonify(False)
+            
         result = check_sig(payload,sig)
 
         # TODO: Add the order to the database
