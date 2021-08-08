@@ -68,7 +68,6 @@ def check_sig(payload,sig):
 
 # the inner recursive function
 def fill_order():
-    
     # get the order you just inserted from the DB
     current_order = g.session.query(Order).order_by(Order.id.desc()).first()
     # print("_order_id")
@@ -100,7 +99,6 @@ def fill_order():
         match_order.counterparty_id = current_order.id
         current_order.counterparty_id = match_order.id
         g.session.commit()
-#         shutdown_session()
 
         # if both orders can completely fill each other
         # no child order needs to be generated
@@ -114,7 +112,6 @@ def fill_order():
             # print(match_order.id)
             # print(diff)
             # print(sell_amount_new_match)
-#             create_session()
             new_order = Order(sender_pk=match_order.sender_pk,
                               receiver_pk=match_order.receiver_pk,
                               buy_currency=match_order.buy_currency,
@@ -123,7 +120,6 @@ def fill_order():
                               sell_amount=sell_amount_new_match,
                               creator_id=match_order.id)
             g.session.add(new_order)
-#             shutdown_session()
             g.session.commit()
             fill_order()
 
@@ -136,7 +132,6 @@ def fill_order():
             # print(current_order.id)
             # print(diff)
             # print(sell_amount_new_current)
-#             create_session()
             new_order = Order(sender_pk=current_order.sender_pk,
                               receiver_pk=current_order.receiver_pk,
                               buy_currency=current_order.buy_currency,
@@ -146,7 +141,6 @@ def fill_order():
                               creator_id=current_order.id)
             g.session.add(new_order)
             g.session.commit()
-#             shutdown_session()
             fill_order()
 
 
@@ -246,11 +240,8 @@ def trade():
                               signature=sig)            
             g.session.add(order_obj)
             
-            
             fill_order()
-            
             shutdown_session()
-            
             return jsonify(result)
         
         # TODO: Fill the order
