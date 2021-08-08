@@ -129,8 +129,10 @@ def trade():
             return jsonify(False)
         
         # check signature
-        result = check_sig(payload,sig)
-
+        check_result = check_sig(payload,sig)
+        result = check_result[0]
+        payload_json = check_result[1]
+        
         # TODO 2: Add the order to the database
         
         # If the signature does not verify, do not insert the order into the “Order” table.
