@@ -8,6 +8,9 @@ tokenA: ERC20 #The ERC20 contract for tokenA
 tokenB: ERC20 #The ERC20 contract for tokenB
 owner: public(address) #The liquidity provider (the address that has the right to withdraw funds and close the contract)
 
+	
+	
+	
 @external
 def get_token_address(token: uint256) -> address:
 	if token == 0:
@@ -15,6 +18,10 @@ def get_token_address(token: uint256) -> address:
 	if token == 1:
 		return self.tokenB.address
 	return ZERO_ADDRESS	
+
+
+
+
 
 # Sets the on chain market maker with its owner, and initial token quantities
 # Both tokenA_addr and tokenB_addr should be addresses of valid ERC20 contracts, 
