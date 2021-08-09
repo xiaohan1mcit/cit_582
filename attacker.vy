@@ -43,7 +43,7 @@ def attack(dao_address:address):
     
     # TODO: make the deposit into the DAO   
     dao = DAO(self.dao_address)
-    dao.deposit.value(deposit_amount)();
+    dao.deposit.value(deposit_amount)()
 #     send(self.dao_address, deposit_amount)
 #     DAO(self.dao_address).deposit() 
     
