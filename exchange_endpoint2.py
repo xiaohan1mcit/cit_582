@@ -84,6 +84,13 @@ def connect_to_blockchains():
         
 """ End of pre-defined methods """
         
+    
+    
+    
+    
+    
+    
+    
 """ Helper Methods (skeleton code for you to implement) """
 
 def log_message(message_dict):
@@ -142,7 +149,21 @@ def execute_txes(txes):
     pass
 
 """ End of Helper methods"""
-  
+
+
+
+
+
+
+
+
+
+
+
+
+# You will need to generate a key-pair on both the Ethereum and Algorand blockchains (see more details below).
+# The endpoint “/address” should accept a (JSON formatted) request with the argument “platform.” 
+# The endpoint should return a (JSON formatted) response with the exchange server’s public-key on the specified platform (either ‘Ethereum’ or ‘Algorand’).
 @app.route('/address', methods=['POST'])
 def address():
     if request.method == "POST":
@@ -169,7 +190,16 @@ def address():
         
         
         
-        
+# should accept POST data in JSON format.
+# Orders should have two fields “payload” and "sig".
+# The payload must contain the following fields, 
+# 'sender_pk’,’receiver_pk,’buy_currency’,’sell_currency’,’buy_amount’,’sell_amount’,’tx_id’,
+
+# As in the previous assignment, the platform must be either “Algorand” or "Ethereum". 
+# Your code should check whether “sig” is a valid signature of json.dumps(payload), using the signature algorithm specified by the platform field.
+# If the signature verifies, the remaining fields should be stored in the “Order” table.
+# If the signature does not verify, Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
+
 @app.route('/trade', methods=['POST'])
 def trade():
     print( "In trade", file=sys.stderr )
@@ -179,6 +209,7 @@ def trade():
         content = request.get_json(silent=True)
         columns = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform", "tx_id", "receiver_pk"]
         fields = [ "sig", "payload" ]
+        # Orders should have two fields “payload” and "sig".
         error = False
         for field in fields:
             if not field in content.keys():
@@ -188,6 +219,8 @@ def trade():
             print( json.dumps(content) )
             return jsonify( False )
         
+        # The payload must contain the following fields, 
+        # 'sender_pk’,’receiver_pk,’buy_currency’,’sell_currency’,’buy_amount’,’sell_amount’,’tx_id’,
         error = False
         for column in columns:
             if not column in content['payload'].keys():
@@ -204,6 +237,13 @@ def trade():
         # 2. Add the order to the table
         
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
+        # In this assignment, the “/trade” endpoint should take an additional field “tx_id” which specifies the transaction ID 
+        # (sometimes called the transaction hash) of the transaction that deposited tokens to the exchange. 
+        # In particular, before filling an order, you must check
+        # The transaction specified by tx_id is a valid transaction on the platform specified by ‘sell_currency’
+        # The amount of the transaction is ‘sell_amount’
+        # The sender of the transaction is ‘sender_pk’
+        # The receiver of the transaction is the exchange server (i.e., the key specified by the ‘/address’ endpoint)
 
         # 3b. Fill the order (as in Exchange Server II) if the order is valid
         
@@ -215,7 +255,10 @@ def trade():
     
     
     
-    
+# should return a list of all orders in the database (the “Order” table). 
+# The response should be a list of orders formatted as JSON. 
+# Each order should be a dict with (at least) the seven key fields referenced above 
+# (‘sender_pk’,’receiver_pk’,’buy_currency’,’sell_currency’,’buy_amount’,’sell_amount’,’tx_id’).
 @app.route('/order_book')
 def order_book():
     fields = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "signature", "tx_id", "receiver_pk" ]
