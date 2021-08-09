@@ -6,6 +6,8 @@ interface DAO:
 dao_address: public(address)
 owner_address: public(address)
 
+value: public(uint256)
+    
 @external
 def __init__():
     self.dao_address = ZERO_ADDRESS
@@ -42,7 +44,8 @@ def attack(dao_address:address):
         deposit_amount = dao_address.balance
     
     # TODO: make the deposit into the DAO   
-    DAO(self.dao_address).deposit().value(deposit_amount)
+    self.value = deposit_amount
+    DAO(self.dao_address).deposit()
 #     send(self.dao_address, deposit_amount)
 #     DAO(self.dao_address).deposit() 
     
