@@ -147,9 +147,13 @@ def execute_txes(txes):
 def address():
     if request.method == "POST":
         content = request.get_json(silent=True)
+        
+        # check whether the input content contains a 'platform'
         if 'platform' not in content.keys():
             print( f"Error: no platform provided" )
             return jsonify( "Error: no platform provided" )
+        
+        # check whether the input platform is "Ethereum" or "Algorand"
         if not content['platform'] in ["Ethereum", "Algorand"]:
             print( f"Error: {content['platform']} is an invalid platform" )
             return jsonify( f"Error: invalid platform provided: {content['platform']}"  )
@@ -157,10 +161,15 @@ def address():
         if content['platform'] == "Ethereum":
             #Your code here
             return jsonify( eth_pk )
+        
         if content['platform'] == "Algorand":
             #Your code here
             return jsonify( algo_pk )
 
+        
+        
+        
+        
 @app.route('/trade', methods=['POST'])
 def trade():
     print( "In trade", file=sys.stderr )
@@ -203,12 +212,20 @@ def trade():
         # If all goes well, return jsonify(True). else return jsonify(False)
         return jsonify(True)
 
+    
+    
+    
+    
 @app.route('/order_book')
 def order_book():
     fields = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "signature", "tx_id", "receiver_pk" ]
     
     # Same as before
     pass
+
+
+
+
 
 if __name__ == '__main__':
     app.run(port='5002')
