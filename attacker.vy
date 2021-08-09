@@ -7,7 +7,7 @@ dao_address: public(address)
 owner_address: public(address)
 
 # add a value field
-value: public(uint256)
+# value: public(uint256)
     
     
     
