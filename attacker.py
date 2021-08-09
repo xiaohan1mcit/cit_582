@@ -11,6 +11,9 @@ def __init__():
     self.dao_address = ZERO_ADDRESS
     self.owner_address = ZERO_ADDRESS
 
+    
+# Your attack will need some method for stopping the attack otherwise the continued recursive calls will exceed Ethereum’s call stack, 
+# or the contract will exceed the gas limit.
 @internal
 def _attack() -> bool:
     assert self.dao_address != ZERO_ADDRESS
@@ -26,12 +29,6 @@ def _attack() -> bool:
 # Be payable – it will use these funds to execute the reentrancy attack
 # Execute the reentry attack by repeatedly calling withdraw() before the DAO updates its state. This can be achieved by recursively calling the _attack method.
 # Return all the payment and all stolen funds to the user who called the attack contract
-
-# You will need to use a default function. This function gets executed whenever your Attacker contract gets sent Ether (without data), 
-# and should implicitly be driving your recursion.
-
-# Your attack will need some method for stopping the attack otherwise the continued recursive calls will exceed Ethereum’s call stack, 
-# or the contract will exceed the gas limit.
 @external
 @payable
 def attack(dao_address:address):
@@ -50,6 +47,11 @@ def attack(dao_address:address):
     
     pass
 
+
+
+
+# You will need to use a default function. This function gets executed whenever your Attacker contract gets sent Ether (without data), 
+# and should implicitly be driving your recursion.
 @external
 @payable
 def __default__():
