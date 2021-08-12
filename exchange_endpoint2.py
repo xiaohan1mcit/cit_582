@@ -154,12 +154,42 @@ def execute_txes(txes):
 
 
 
+
+# check whether “sig” is a valid signature of json.dumps(payload),
+# using the signature algorithm specified by the platform field.
+# Be sure to verify the payload using the sender_pk.
+def check_sig(payload,sig):
+    
+    pk = payload['sender_pk']
+    platform = payload['platform']
+    payload_json = json.dumps(payload)
+    result = False
+    
+    if platform == "Algorand":
+        print("Algorand")
+        if algosdk.util.verify_bytes(payload_json.encode('utf-8'), sig, pk):
+            print("Algo sig verifies!")
+            result = True
+
+    elif platform == "Ethereum":
+        print("Ethereum")
+        eth_encoded_msg = eth_account.messages.encode_defunct(text=payload_json)
+        if eth_account.Account.recover_message(eth_encoded_msg, signature=sig) == pk:
+            print("Eth sig verifies!")
+            result = True
+    
+    return result, payload_json
+
+
+
 # convert a row in DB into a dict
 def row2dict(row):
     return {
         c.name: getattr(row, c.name)
         for c in row.__table__.columns
     }
+
+
 
 # print a dictionary nicely
 def print_dict(d):
