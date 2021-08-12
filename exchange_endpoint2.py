@@ -94,11 +94,11 @@ def connect_to_blockchains():
 """ Helper Methods (skeleton code for you to implement) """
 
 def log_message(message_dict):
-    msg = json.dumps(message_dict) # generate json string
+    # msg = json.dumps(message_dict) # generate json string
     
     # TODO: Add message to the Log table
     create_session()
-    order_obj = Log(message=msg)
+    order_obj = Log(message=message_dict)
     g.session.add(order_obj)
     shutdown_session()
     #return
@@ -259,6 +259,7 @@ def trade():
         content = request.get_json(silent=True)
         columns = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform", "tx_id", "receiver_pk"]
         fields = [ "sig", "payload" ]
+        
         # Orders should have two fields “payload” and "sig".
         error = False
         for field in fields:
@@ -301,6 +302,32 @@ def trade():
         payload_json = check_result[1]
         
         # 2. Add the order to the table
+        
+        # If the signature does not verify, do not insert the order into the “Order” table.
+        # Instead, insert a record into the “Log” table, with the message field set to be json.dumps(payload).
+        if result is False:
+            print("signature does NOT verify")
+            log_message(payload_json)            
+            return jsonify(result)
+        
+        # If the signature verifies, store the signature,
+        # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
+        if result is True:
+            print("signature verifies")
+            create_session()
+            order_obj = Order(sender_pk=payload['sender_pk'],
+                              receiver_pk=payload['receiver_pk'],
+                              buy_currency=payload['buy_currency'],
+                              sell_currency=payload['sell_currency'],
+                              buy_amount=payload['buy_amount'],
+                              sell_amount=payload['sell_amount'],
+                              signature=sig)            
+            g.session.add(order_obj)
+            
+            # TODO 3: Fill the order
+            fill_order()
+            shutdown_session()
+            return jsonify(result)
         
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
         # In this assignment, the “/trade” endpoint should take an additional field “tx_id” which specifies the transaction ID 
