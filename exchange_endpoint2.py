@@ -284,6 +284,22 @@ def trade():
         
         # 1. Check the signature
         
+        # extract contents from json
+        sig = content['sig']
+        payload = content['payload']
+        platform = payload['platform']
+
+        # The platform must be either “Algorand” or "Ethereum".
+        platforms = ["Algorand", "Ethereum"]
+        if not platform in platforms:
+            print("input platform is not Algorand or Ethereum")
+            return jsonify(False)
+        
+        # check signature
+        check_result = check_sig(payload,sig)
+        result = check_result[0]
+        payload_json = check_result[1]
+        
         # 2. Add the order to the table
         
         # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
