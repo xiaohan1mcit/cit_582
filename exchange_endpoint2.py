@@ -148,6 +148,22 @@ def execute_txes(txes):
 
     pass
 
+
+
+# convert a row in DB into a dict
+def row2dict(row):
+    return {
+        c.name: getattr(row, c.name)
+        for c in row.__table__.columns
+    }
+
+# print a dictionary nicely
+def print_dict(d):
+    for key, value in d.items():
+        print(key, ' : ', value)
+
+
+
 """ End of Helper methods"""
 
 
@@ -264,7 +280,27 @@ def order_book():
     fields = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "signature", "tx_id", "receiver_pk" ]
     
     # Same as before
-    pass
+    print("--------- order_book ---------")
+    create_session()
+        
+    # get orders from DB into a list
+    order_dict_list = [
+           row2dict(order)
+           for order in g.session.query(Order).all()
+    ]
+        
+    # add the list into a dict
+    result = {
+        'data': order_dict_list
+    }    
+    
+    print("order book length: ")
+    print(len(order_dict_list))
+    # print_dict(order_dict_list[-2])
+    # print_dict(order_dict_list[-1])
+
+    shutdown_session()
+    return jsonify(result)
 
 
 
