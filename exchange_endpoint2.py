@@ -321,6 +321,7 @@ def trade():
                               sell_currency=payload['sell_currency'],
                               buy_amount=payload['buy_amount'],
                               sell_amount=payload['sell_amount'],
+                              tx_id=payload['tx_id'],
                               signature=sig)            
             g.session.add(order_obj)
     
