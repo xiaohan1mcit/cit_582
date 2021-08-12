@@ -104,6 +104,14 @@ def log_message(message_dict):
     #return
 
     
+    
+    
+    
+    
+    
+    
+    
+    
 def get_algo_keys():
     
     # TODO: Generate or read (using the mnemonic secret) 
@@ -120,6 +128,16 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
 
     return eth_sk, eth_pk
   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 def fill_order(order, txes=[]):
     # TODO: 
     # Match orders (same as Exchange Server II)
@@ -128,6 +146,15 @@ def fill_order(order, txes=[]):
     
     pass
   
+    
+    
+    
+    
+    
+    
+    
+    
+    
 def execute_txes(txes):
     if txes is None:
         return True
@@ -151,6 +178,10 @@ def execute_txes(txes):
     #       2. Add all transactions to the TX table
 
     pass
+
+
+
+
 
 
 
@@ -231,10 +262,12 @@ def address():
         
         if content['platform'] == "Ethereum":
             #Your code here
+            eth_pk = get_eth_keys()[1]
             return jsonify( eth_pk )
         
         if content['platform'] == "Algorand":
             #Your code here
+            algo_pk = get_algo_keys()[1]
             return jsonify( algo_pk )
 
         
