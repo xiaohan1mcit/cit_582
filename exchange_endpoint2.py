@@ -94,12 +94,16 @@ def connect_to_blockchains():
 """ Helper Methods (skeleton code for you to implement) """
 
 def log_message(message_dict):
-    msg = json.dumps(message_dict)
-
-    # TODO: Add message to the Log table
+    msg = json.dumps(message_dict) # generate json string
     
-    return
+    # TODO: Add message to the Log table
+    create_session()
+    order_obj = Log(message=msg)
+    g.session.add(order_obj)
+    shutdown_session()
+    #return
 
+    
 def get_algo_keys():
     
     # TODO: Generate or read (using the mnemonic secret) 
