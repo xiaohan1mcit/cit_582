@@ -323,27 +323,23 @@ def trade():
                               sell_amount=payload['sell_amount'],
                               signature=sig)            
             g.session.add(order_obj)
-            
-            # TODO 3: Fill the order
-            fill_order()
-            shutdown_session()
-            return jsonify(result)
-        
-        # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
-        # In this assignment, the “/trade” endpoint should take an additional field “tx_id” which specifies the transaction ID 
-        # (sometimes called the transaction hash) of the transaction that deposited tokens to the exchange. 
-        # In particular, before filling an order, you must check
-        # The transaction specified by tx_id is a valid transaction on the platform specified by ‘sell_currency’
-        # The amount of the transaction is ‘sell_amount’
-        # The sender of the transaction is ‘sender_pk’
-        # The receiver of the transaction is the exchange server (i.e., the key specified by the ‘/address’ endpoint)
+    
+            # 3a. Check if the order is backed by a transaction equal to the sell_amount (this is new)
+            # In this assignment, the “/trade” endpoint should take an additional field “tx_id” which specifies the transaction ID 
+            # (sometimes called the transaction hash) of the transaction that deposited tokens to the exchange. 
 
-        # 3b. Fill the order (as in Exchange Server II) if the order is valid
-        
-        # 4. Execute the transactions
-        
-        # If all goes well, return jsonify(True). else return jsonify(False)
-        return jsonify(True)
+            # In particular, before filling an order, you must check
+            # The transaction specified by tx_id is a valid transaction on the platform specified by ‘sell_currency’
+            # The amount of the transaction is ‘sell_amount’
+            # The sender of the transaction is ‘sender_pk’
+            # The receiver of the transaction is the exchange server (i.e., the key specified by the ‘/address’ endpoint)
+
+            # 3b. Fill the order (as in Exchange Server II) if the order is valid
+
+            # 4. Execute the transactions
+
+            # If all goes well, return jsonify(True). else return jsonify(False)
+            return jsonify(True)
 
     
     
