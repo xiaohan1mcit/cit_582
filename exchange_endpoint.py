@@ -341,6 +341,7 @@ def print_dict(d):
 @app.route('/address', methods=['POST'])
 def address():
     if request.method == "POST":
+        print("--------- address ---------")
         content = request.get_json(silent=True)
         
         # check whether the input content contains a 'platform'
