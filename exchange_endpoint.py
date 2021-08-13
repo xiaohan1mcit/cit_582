@@ -381,6 +381,7 @@ def address():
 
 @app.route('/trade', methods=['POST'])
 def trade():
+    print("--------- trade ---------")
     print( "In trade", file=sys.stderr )
     connect_to_blockchains()
     get_keys()
