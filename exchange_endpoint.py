@@ -386,7 +386,9 @@ def trade():
     print("--------- trade 2 ---------")
     connect_to_blockchains()
     print("--------- trade 3 ---------")
-    get_keys()
+#     get_keys()
+    get_eth_keys()
+    get_algo_keys() 
     print("--------- trade 4 ---------")
     if request.method == "POST":
         print("--------- trade 5 ---------")
