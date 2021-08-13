@@ -381,17 +381,13 @@ def address():
 
 @app.route('/trade', methods=['POST'])
 def trade():
-    print("--------- trade 1 ---------")
     print( "In trade", file=sys.stderr )
-    print("--------- trade 2 ---------")
     connect_to_blockchains()
-    print("--------- trade 3 ---------")
 #     get_keys()
     get_eth_keys()
     get_algo_keys() 
-    print("--------- trade 4 ---------")
     if request.method == "POST":
-        print("--------- trade 5 ---------")
+        print("--------- trade ---------")
         content = request.get_json(silent=True)
         columns = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform", "tx_id", "receiver_pk"]
         fields = [ "sig", "payload" ]
