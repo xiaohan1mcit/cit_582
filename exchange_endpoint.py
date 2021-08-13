@@ -13,7 +13,10 @@ import math
 import sys
 import traceback
 
+# self imported
 from algosdk import mnemonic
+import web3
+from web3 import Web3, HTTPProvider
 
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
 from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
@@ -132,19 +135,17 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
     # TODO: Generate or read (using the mnemonic secret) 
     # the ethereum public/private keys
     
-#     w3.eth.account.enable_unaudited_hdwallet_features()
-#     acct,mnemonic_secret = w3.eth.account.create_with_mnemonic()
+    # if mnemonic_secret == None:
+    w3.eth.account.enable_unaudited_hdwallet_features()
+    # acct,mnemonic_secret = w3.eth.account.create_with_mnemonic()
+    # print(mnemonic_secret)
     
-#     acct = w3.eth.account.from_mnemonic(mnemonic_secret)
-    acct = w3.eth.account.from_mnemonic("coral allow abandon recipe top tray caught video climb similar prepare bracket ")
+    mnemonic_secret = "program gym dash habit possible gate shallow exclude access report cave will"
+    acct = w3.eth.account.from_mnemonic(mnemonic_secret)
     eth_pk = acct._address
     eth_sk = acct._private_key
 
-    return eth_sk, eth_pk
-  
-    
-    
-    
+    return eth_sk, eth_pk    
     
     
     
