@@ -136,7 +136,7 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
 #     acct,mnemonic_secret = w3.eth.account.create_with_mnemonic()
     
 #     acct = w3.eth.account.from_mnemonic(mnemonic_secret)
-    acct = w3.eth.account.from_mnemonic(filename)
+    acct = w3.eth.account.from_mnemonic("coral allow abandon recipe top tray caught video climb similar prepare bracket ")
     eth_pk = acct._address
     eth_sk = acct._private_key
 
