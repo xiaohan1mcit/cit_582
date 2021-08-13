@@ -154,14 +154,14 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
     
     
 # def fill_order(order, txes=[]):
-def fill_order():
+def fill_order(order):
     # TODO: 
     # Match orders (same as Exchange Server II)
     # Validate the order has a payment to back it (make sure the counterparty also made a payment)
     # Make sure that you end up executing all resulting transactions!
     
     # get the order you just inserted from the DB
-    current_order = g.session.query(Order).order_by(Order.id.desc()).first()
+    current_order = order
     # print("_order_id")
     # print(current_order.id)
 
@@ -214,7 +214,8 @@ def fill_order():
             g.session.add(new_order)
             g.session.commit()
             print("M")
-            fill_order()
+            next_order = g.session.query(Order).order_by(Order.id.desc()).first()
+            fill_order(next_order)
 
         # If current_order is not completely filled
         if (current_order.buy_amount > match_order.sell_amount):
@@ -235,7 +236,8 @@ def fill_order():
             g.session.add(new_order)
             g.session.commit()
             print("C")
-            fill_order()
+            next_order = g.session.query(Order).order_by(Order.id.desc()).first()
+            fill_order(next_order)
   
     
     
@@ -460,7 +462,8 @@ def trade():
             # The receiver of the transaction is the exchange server (i.e., the key specified by the ‘/address’ endpoint)
 
             # 3b. Fill the order (as in Exchange Server II) if the order is valid
-            fill_order()
+            current_order = g.session.query(Order).order_by(Order.id.desc()).first()
+            fill_order(current_order)
             
 
             # 4. Execute the transactions
