@@ -13,6 +13,8 @@ import math
 import sys
 import traceback
 
+from algosdk import mnemonic
+
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
 from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth
 
@@ -116,6 +118,11 @@ def get_algo_keys():
     
     # TODO: Generate or read (using the mnemonic secret) 
     # the algorand public/private keys
+    
+    
+    mnemonic_secret = "YOUR MNEMONIC HERE"
+    algo_sk = mnemonic.to_private_key(mnemonic_secret)
+    algo_pk = mnemonic.to_public_key(mnemonic_secret)
     
     return algo_sk, algo_pk
 
