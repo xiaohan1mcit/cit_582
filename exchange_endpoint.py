@@ -387,8 +387,9 @@ def trade():
     connect_to_blockchains()
     print("--------- trade 3 ---------")
     get_keys()
+    print("--------- trade 4 ---------")
     if request.method == "POST":
-        print("--------- trade 4 ---------")
+        print("--------- trade 5 ---------")
         content = request.get_json(silent=True)
         columns = [ "buy_currency", "sell_currency", "buy_amount", "sell_amount", "platform", "tx_id", "receiver_pk"]
         fields = [ "sig", "payload" ]
