@@ -153,13 +153,89 @@ def get_eth_keys(filename = "eth_mnemonic.txt"):
     
     
     
-def fill_order(order, txes=[]):
+# def fill_order(order, txes=[]):
+def fill_order():
     # TODO: 
     # Match orders (same as Exchange Server II)
     # Validate the order has a payment to back it (make sure the counterparty also made a payment)
     # Make sure that you end up executing all resulting transactions!
     
-    pass
+    # get the order you just inserted from the DB
+    current_order = g.session.query(Order).order_by(Order.id.desc()).first()
+    # print("_order_id")
+    # print(current_order.id)
+
+    # Check if there are any existing orders that match and add them into a list
+    order_list = []
+    orders = g.session.query(Order).filter(Order.filled == None).all()
+    for existing_order in orders:
+        # if ((existing_order.buy_amount != 0) and (current_order.sell_amount != 0)):
+        if ((existing_order.buy_currency == current_order.sell_currency)
+                and (existing_order.sell_currency == current_order.buy_currency)
+                and (existing_order.sell_amount / existing_order.buy_amount
+                     >= current_order.buy_amount / current_order.sell_amount)
+                and (existing_order.counterparty_id == None)):
+            order_list.append(existing_order)
+
+    # If a match is found between order and existing_order
+    if (len(order_list) > 0):
+        # print(" order_list_length")
+        # print(len(order_list))
+        # pick the first one in the list
+        match_order = order_list[0]
+
+        # Set the filled field to be the current timestamp on both orders
+        # Set counterparty_id to be the id of the other order
+        match_order.filled = datetime.now()
+        current_order.filled = datetime.now()
+        match_order.counterparty_id = current_order.id
+        current_order.counterparty_id = match_order.id
+        g.session.commit()
+
+        # if both orders can completely fill each other
+        # no child order needs to be generated
+
+        # If match_order is not completely filled
+        if (current_order.sell_amount < match_order.buy_amount):
+            # print("_match_order is not completely filled")
+            diff = match_order.buy_amount - current_order.sell_amount
+            exchange_rate_match = match_order.sell_amount / match_order.buy_amount
+            sell_amount_new_match = diff * exchange_rate_match
+            # print(match_order.id)
+            # print(diff)
+            # print(sell_amount_new_match)
+            new_order = Order(sender_pk=match_order.sender_pk,
+                              receiver_pk=match_order.receiver_pk,
+                              buy_currency=match_order.buy_currency,
+                              sell_currency=match_order.sell_currency,
+                              buy_amount=diff,
+                              sell_amount=sell_amount_new_match,
+                              creator_id=match_order.id)
+            g.session.add(new_order)
+            g.session.commit()
+            print("M")
+            fill_order()
+
+        # If current_order is not completely filled
+        if (current_order.buy_amount > match_order.sell_amount):
+            # print("_current_order is not completely filled")
+            diff = current_order.buy_amount - match_order.sell_amount
+            exchange_rate_current = current_order.buy_amount / current_order.sell_amount
+            sell_amount_new_current = diff / exchange_rate_current
+            # print(current_order.id)
+            # print(diff)
+            # print(sell_amount_new_current)
+            new_order = Order(sender_pk=current_order.sender_pk,
+                              receiver_pk=current_order.receiver_pk,
+                              buy_currency=current_order.buy_currency,
+                              sell_currency=current_order.sell_currency,
+                              buy_amount=diff,
+                              sell_amount=sell_amount_new_current,
+                              creator_id=current_order.id)
+            g.session.add(new_order)
+            g.session.commit()
+            print("C")
+            fill_order()
   
     
     
@@ -384,6 +460,8 @@ def trade():
             # The receiver of the transaction is the exchange server (i.e., the key specified by the ‘/address’ endpoint)
 
             # 3b. Fill the order (as in Exchange Server II) if the order is valid
+            fill_order()
+            
 
             # 4. Execute the transactions
 
