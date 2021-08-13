@@ -470,7 +470,8 @@ def trade():
             # 4. Execute the transactions
 
             # If all goes well, return jsonify(True). else return jsonify(False)
-            return jsonify(True)
+            shutdown_session()
+            return jsonify(result)
 
     
     
