@@ -615,12 +615,13 @@ def order_book():
     print(len(tx_dict_list))
     print()
     print_dict(tx_dict_list[-2])
+    print()
     print_dict(tx_dict_list[-1])
     
     
 
     shutdown_session()
-    return jsonify(order_dict_list)
+    return jsonify(result)
 
 
 
