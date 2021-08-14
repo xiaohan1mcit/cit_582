@@ -212,7 +212,7 @@ def fill_order(order, txes=[]):
                               buy_amount=diff,
                               sell_amount=sell_amount_new_match,
                               creator_id=match_order.id, 
-                              tx_id=txid)
+                              tx_id=match_order.tx_id)
             g.session.add(new_order)
             g.session.commit()
             
@@ -259,7 +259,7 @@ def fill_order(order, txes=[]):
                               buy_amount=diff,
                               sell_amount=sell_amount_new_current,
                               creator_id=current_order.id, 
-                              tx_id=txid)
+                              tx_id=current_order.tx_id)
             g.session.add(new_order)
             g.session.commit()
             
