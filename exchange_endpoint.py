@@ -348,6 +348,8 @@ def execute_txes(txes):
     print_tx_list(algo_txes)
     print_tx_list(eth_txes)
     
+    send_tokens_algo( acl, algo_sk, algo_txes)
+    
     w3 = Web3()
     send_tokens_eth(w3, eth_sk, eth_txes)
 
