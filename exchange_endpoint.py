@@ -211,6 +211,9 @@ def fill_order(order, txes=[]):
             # g.session.add(tx2)
             # g.session.commit()
             print("E")
+            print(current_order.id)
+            print(match_order.id)
+            print()
             
 
         # If match_order is not completely filled
@@ -252,6 +255,9 @@ def fill_order(order, txes=[]):
             txes.append(tx2_dict)
             
             print("M")
+            print(current_order.id)
+            print(match_order.id)
+            print()
             next_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(next_order, txes)
 
@@ -295,6 +301,9 @@ def fill_order(order, txes=[]):
             txes.append(tx2_dict)
             
             print("C")
+            print(current_order.id)
+            print(match_order.id)
+            print()
             next_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(next_order, txes)
   
