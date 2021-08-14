@@ -52,23 +52,33 @@ def send_tokens_algo( acl, sender_sk, txes):
 
     tx_ids = []
     for i,tx in enumerate(txes):
+        
         unsigned_tx = "Replace me with a transaction object"
 
         # TODO: Sign the transaction
         signed_tx = "Replace me with a SignedTransaction object"
         
-        try:
-            print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
+        print("hehehehehehehehehehe")
+        
+#         try:
+#             print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
             
-            # TODO: Send the transaction to the testnet
+#             # TODO: Send the transaction to the testnet
             
-            tx_id = "Replace me with the tx_id"
-            txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
-            print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
-        except Exception as e:
-            print(e)
+#             tx_id = "Replace me with the tx_id"
+#             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
+#             print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
+#         except Exception as e:
+#             print(e)
 
     return []
+
+
+
+
+
+
+
 
 # Function from Algorand Inc.
 def wait_for_confirmation_algo(client, txid):
