@@ -342,8 +342,9 @@ def execute_txes(txes):
     print_tx_list(algo_txes)
     print_tx_list(eth_txes)
     
-    eth_print()
-    print("\n\n\nwoozie\n\n\n")
+    eth_print()    
+    w3 = Web3()
+    send_tokens_eth(w3, eth_sk, txes):
 
 
     # TODO: 
