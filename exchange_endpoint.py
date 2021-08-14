@@ -19,7 +19,7 @@ import web3
 from web3 import Web3, HTTPProvider
 
 # TODO: make sure you implement connect_to_algo, send_tokens_algo, and send_tokens_eth
-from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth, wait_for_confirmation_eth, wait_for_confirmation_algo
+from send_tokens import connect_to_algo, connect_to_eth, send_tokens_algo, send_tokens_eth, wait_for_confirmation_eth, wait_for_confirmation_algo, eth_print
 
 from models import Base, Order, TX
 engine = create_engine('sqlite:///orders.db')
