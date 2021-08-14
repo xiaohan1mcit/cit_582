@@ -202,8 +202,8 @@ def fill_order(order, txes=[]):
 #             tx2 = TX(platform = match_order.buy_currency,
 #                        receiver_pk = match_order.sender_pk,
 #                        order_id = match_order.id)
-            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id}
-            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id}
+            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id, 'amount': current_order.buy_amount}
+            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id, 'amount': match_order.buy_amount}
             txes.append(tx1_dict)
             txes.append(tx2_dict)
             
@@ -247,7 +247,7 @@ def fill_order(order, txes=[]):
 #                    'receiver_pk' = match_order.sender_pk,
 #                    'order_id' = match_order.id)
             tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id, 'amount': current_order.buy_amount}
-            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id, 'amount': match_order.buy_amount}
+            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id, 'amount': current_order.sell_amount}
             txes.append(tx1_dict)
             txes.append(tx2_dict)
             
@@ -287,8 +287,8 @@ def fill_order(order, txes=[]):
 #             d_receiver_pk = current_order.sender_pk,
 #             d_order_id = current_order.id
 #             tx1_dict = {'platform': d_platform, 'receiver_pk': d_receiver_pk, 'order_id': d_order_id}
-            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id}
-            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id}
+            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id, 'amount': match_order.sell_amount}
+            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id, 'amount': match_order.buy_amount}
             
             
             txes.append(tx1_dict)
