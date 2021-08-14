@@ -204,6 +204,7 @@ def fill_order(order, txes=[]):
             # print(match_order.id)
             # print(diff)
             # print(sell_amount_new_match)
+            txid = match_order.tx_id
             new_order = Order(sender_pk=match_order.sender_pk,
                               receiver_pk=match_order.receiver_pk,
                               buy_currency=match_order.buy_currency,
@@ -249,6 +250,7 @@ def fill_order(order, txes=[]):
             # print(current_order.id)
             # print(diff)
             # print(sell_amount_new_current)
+            txid = current_order.tx_id
             new_order = Order(sender_pk=current_order.sender_pk,
                               receiver_pk=current_order.receiver_pk,
                               buy_currency=current_order.buy_currency,
