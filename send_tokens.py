@@ -128,7 +128,9 @@ def send_tokens_eth(w3,sender_sk,txes):
         print(tx_amounts)
         receiver_pk = tx['receiver_pk']
         print(receiver_pk)
-        tx_ids_minor = send_eth(sender_pk,sender_sk,receiver_pk,tx_amounts)
+        print(sender_pk)
+        print(sender_sk)
+#         tx_ids_minor = send_eth(sender_pk,sender_sk,receiver_pk,tx_amounts)
         print('success')
         # continue
 
