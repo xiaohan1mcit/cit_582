@@ -127,10 +127,9 @@ def send_tokens_eth(w3,sender_sk,txes):
         print(type(tx_amounts))
         print(tx_amounts)
         receiver_pk = tx['receiver_pk']
-        print(receiver_pk)
-        print(sender_pk)
-        print(sender_sk)
-#         tx_ids_minor = send_eth(sender_pk,sender_sk,receiver_pk,tx_amounts)
+        
+        
+        tx_ids_minor = send_eth(sender_pk,sender_sk,receiver_pk,tx_amounts)
         print('success')
         # continue
 
@@ -138,7 +137,12 @@ def send_tokens_eth(w3,sender_sk,txes):
 
 
 def send_eth(sender_pk,sender_sk,receiver_pk,amounts):
-    starting_nonce = w3.eth.get_transaction_count(sender_pk,"pending")
+    print(sender_pk)
+    print(sender_sk)
+    print(receiver_pk)
+    print(amounts)
+    
+#     starting_nonce = w3.eth.get_transaction_count(sender_pk,"pending")
     tx_ids = []
 #     for i,tx_amount in enumerate(amounts):
 #         tx_dict = {
