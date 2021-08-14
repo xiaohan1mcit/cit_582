@@ -345,12 +345,11 @@ def execute_txes(txes):
     algo_txes = [tx for tx in txes if tx['platform'] == "Algorand" ]
     eth_txes = [tx for tx in txes if tx['platform'] == "Ethereum" ]
     
-    print("algo_txes\n")
+    print("\nalgo_txes\n")
     print_tx_list(algo_txes)
-    print("eth_txes\n")
+    print("\neth_txes\n")
     print_tx_list(eth_txes)
     
-    print("hehehehehehehehehehe")
     send_tokens_algo( acl, algo_sk, algo_txes)
     
     w3 = Web3()
