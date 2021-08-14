@@ -322,11 +322,11 @@ def execute_txes(txes):
         print( tx['platform'] for tx in txes )
 
     algo_txes = [tx for tx in txes if tx['platform'] == "Algorand" ]
-    print(type(algo_txes))
-    print(type(algo_txes[0]))
     eth_txes = [tx for tx in txes if tx['platform'] == "Ethereum" ]
-    print(type(eth_txes))
-    print(type(eth_txes[0]))
+    
+    print_tx_list(algo_txes)
+    print_tx_list(eth_txes)
+
 
     # TODO: 
     #       1. Send tokens on the Algorand and eth testnets, appropriately
