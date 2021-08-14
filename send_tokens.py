@@ -8,20 +8,31 @@ from algosdk.future import transaction
 def connect_to_algo(connection_type=''):
     #Connect to Algorand node maintained by PureStake
     algod_token = "B3SU4KcVKi94Jap2VXkK83xx38bsv95K5UZm2lab"
-    purestake_token = {'X-Api-key': algod_token}
+    headers = {'X-Api-key': algod_token}
+#     purestake_token = {'X-Api-key': algod_token}
     
     if connection_type == "indexer":
         # TODO: return an instance of the v2client indexer. This is used for checking payments for tx_id's
         algod_address = "https://testnet-algorand.api.purestake.io/idx2"
 #         indexer_client = indexer.IndexerClient(algod_token, algod_address, headers)
-        indexer_client = indexer.IndexerClient(algod_token, algod_address, headers=purestake_token)
+#         indexer_client = indexer.IndexerClient(algod_token, algod_address, headers=purestake_token)
+        indexer_client = indexer.IndexerClient("",algod_address, headers)
+        return indexer_client
     else:
         # TODO: return an instance of the client for sending transactions
         # Tutorial Link: https://developer.algorand.org/tutorials/creating-python-transaction-purestake-api/
         algod_address = "https://testnet-algorand.api.purestake.io/ps2"
-        algodclient = algod.AlgodClient(algod_token, algod_address, headers=purestake_token)
+#         algodclient = algod.AlgodClient(algod_token, algod_address, headers=purestake_token)
+        algod_client = algod.AlgodClient(algod_token, algod_address, headers)
+        return algod_client
 
-    return None
+#     return None
+
+
+
+
+
+
 
 def send_tokens_algo( acl, sender_sk, txes):
     params = acl.suggested_params
