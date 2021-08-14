@@ -362,10 +362,10 @@ def print_dict(d):
 def print_tx_list(txes):
     print(len(txes))
     for tx in txes:
-        print(tx['id'])
-        print(tx['platform'])
-        print(tx['receiver_pk'])
-        print(tx['order_id'])
+        print(tx.id)
+        print(tx.platform)
+        print(tx.receiver_pk)
+        print(tx.order_id)
         print()
         
 """ End of Helper methods"""
