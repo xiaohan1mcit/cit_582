@@ -192,28 +192,7 @@ def fill_order(order, txes=[]):
         current_order.counterparty_id = match_order.id
         g.session.commit()
         
-        # if both orders can completely fill each other
-        # no child order needs to be generated
-        if (current_order.sell_amount == match_order.buy_amount):
-            # since we find a match, create transactions
-#             tx1 = TX(platform = current_order.buy_currency,
-#                        receiver_pk = current_order.sender_pk,
-#                        order_id = current_order.id)
-#             tx2 = TX(platform = match_order.buy_currency,
-#                        receiver_pk = match_order.sender_pk,
-#                        order_id = match_order.id)
-            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id, 'amount': current_order.buy_amount}
-            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id, 'amount': match_order.buy_amount}
-            txes.append(tx1_dict)
-            txes.append(tx2_dict)
-            
-            # g.session.add(tx1)
-            # g.session.add(tx2)
-            # g.session.commit()
-            print("E")
-            print(current_order.id)
-            print(match_order.id)
-            print()
+        
             
 
         # If match_order is not completely filled
@@ -306,6 +285,29 @@ def fill_order(order, txes=[]):
             print()
             next_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(next_order, txes)
+            
+        # if both orders can completely fill each other
+        # no child order needs to be generated
+        else:
+            # since we find a match, create transactions
+#             tx1 = TX(platform = current_order.buy_currency,
+#                        receiver_pk = current_order.sender_pk,
+#                        order_id = current_order.id)
+#             tx2 = TX(platform = match_order.buy_currency,
+#                        receiver_pk = match_order.sender_pk,
+#                        order_id = match_order.id)
+            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id, 'amount': current_order.buy_amount}
+            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id, 'amount': match_order.buy_amount}
+            txes.append(tx1_dict)
+            txes.append(tx2_dict)
+            
+            # g.session.add(tx1)
+            # g.session.add(tx2)
+            # g.session.commit()
+            print("E")
+            print(current_order.id)
+            print(match_order.id)
+            print()
   
     
     
