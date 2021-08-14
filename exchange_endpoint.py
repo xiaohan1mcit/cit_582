@@ -86,10 +86,12 @@ def connect_to_blockchains():
     try:
         if w3_flag or not g.w3.isConnected():
             g.w3 = connect_to_eth()
+            print("connect_to_eth()")
     except Exception as e:
         print("Trying to connect to web3 again")
         print(traceback.format_exc())
         g.w3 = connect_to_eth()
+        print("connect_to_eth()-e")
         
 """ End of pre-defined methods """
         
