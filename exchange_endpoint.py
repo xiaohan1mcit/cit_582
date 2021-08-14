@@ -282,6 +282,9 @@ def fill_order(order, txes=[]):
             d_platform = current_order.buy_currency, 
             d_receiver_pk = current_order.sender_pk,
             d_order_id = current_order.id
+            tx1_dict = {'platform': d_platform, 'receiver_pk': d_receiver_pk, 'order_id': d_order_id}
+            
+            
             txes.append(tx1)
             txes.append(tx2)
             
