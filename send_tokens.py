@@ -115,10 +115,14 @@ def send_tokens_eth(w3,sender_sk,txes):
     # TODO: For each of the txes, sign and send them to the testnet
     # Make sure you track the nonce -locally-
     
+    print('hahahahahahaha')
+    
     tx_ids = []
     for i,tx in enumerate(txes):
         # Your code here
-        continue
+        print(i)
+        print(tx['order_id'])
+        # continue
 
     return tx_ids
 
