@@ -196,14 +196,21 @@ def fill_order(order, txes=[]):
         # no child order needs to be generated
         if (current_order.sell_amount == match_order.buy_amount):
             # since we find a match, create transactions
-            tx1 = TX(platform = current_order.buy_currency,
-                       receiver_pk = current_order.sender_pk,
-                       order_id = current_order.id)
-            tx2 = TX(platform = match_order.buy_currency,
-                       receiver_pk = match_order.sender_pk,
-                       order_id = match_order.id)
+#             tx1 = TX(platform = current_order.buy_currency,
+#                        receiver_pk = current_order.sender_pk,
+#                        order_id = current_order.id)
+#             tx2 = TX(platform = match_order.buy_currency,
+#                        receiver_pk = match_order.sender_pk,
+#                        order_id = match_order.id)
+            tx1 = {platform = current_order.buy_currency, 
+                   eceiver_pk = current_order.sender_pk,
+                   order_id = current_order.id}
+            tx2 = {platform = match_order.buy_currency,
+                   receiver_pk = match_order.sender_pk,
+                   order_id = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
+            
             # g.session.add(tx1)
             # g.session.add(tx2)
             # g.session.commit()
@@ -230,12 +237,18 @@ def fill_order(order, txes=[]):
             g.session.commit()
             
             # since we find a match, create transactions
-            tx1 = TX(platform = current_order.buy_currency,
-                       receiver_pk = current_order.sender_pk,
-                       order_id = current_order.id)
-            tx2 = TX(platform = match_order.buy_currency,
-                       receiver_pk = match_order.sender_pk,
-                       order_id = match_order.id)
+#             tx1 = TX(platform = current_order.buy_currency,
+#                        receiver_pk = current_order.sender_pk,
+#                        order_id = current_order.id)
+#             tx2 = TX(platform = match_order.buy_currency,
+#                        receiver_pk = match_order.sender_pk,
+#                        order_id = match_order.id)
+            tx1 = {platform = current_order.buy_currency, 
+                   eceiver_pk = current_order.sender_pk,
+                   order_id = current_order.id}
+            tx2 = {platform = match_order.buy_currency,
+                   receiver_pk = match_order.sender_pk,
+                   order_id = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -263,12 +276,18 @@ def fill_order(order, txes=[]):
             g.session.commit()
             
             # since we find a match, create transactions
-            tx1 = TX(platform = current_order.buy_currency,
-                       receiver_pk = current_order.sender_pk,
-                       order_id = current_order.id)
-            tx2 = TX(platform = match_order.buy_currency,
-                       receiver_pk = match_order.sender_pk,
-                       order_id = match_order.id)
+#             tx1 = TX(platform = current_order.buy_currency,
+#                        receiver_pk = current_order.sender_pk,
+#                        order_id = current_order.id)
+#             tx2 = TX(platform = match_order.buy_currency,
+#                        receiver_pk = match_order.sender_pk,
+#                        order_id = match_order.id)
+            tx1 = {platform = current_order.buy_currency, 
+                   eceiver_pk = current_order.sender_pk,
+                   order_id = current_order.id}
+            tx2 = {platform = match_order.buy_currency,
+                   receiver_pk = match_order.sender_pk,
+                   order_id = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -362,10 +381,7 @@ def print_dict(d):
 def print_tx_list(txes):
     print(len(txes))
     for tx in txes:
-        print(tx.id)
-        print(tx.platform)
-        print(tx.receiver_pk)
-        print(tx.order_id)
+        print_dict(tx)
         print()
         
 """ End of Helper methods"""
