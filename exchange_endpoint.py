@@ -595,8 +595,27 @@ def order_book():
     
     print("order book length: ")
     print(len(order_dict_list))
+    print()
     # print_dict(order_dict_list[-2])
     # print_dict(order_dict_list[-1])
+    
+    #############
+    
+    tx_dict_list = [
+           row2dict(tx)
+           for tx in g.session.query(TX).all()
+    ]
+    
+    # add the list into a dict
+    tx_result = {
+        'data': tx_dict_list
+    }    
+    
+    print("TX book length: ")
+    print(len(tx_dict_list))
+    print()
+    
+    
 
     shutdown_session()
     return jsonify(result)
