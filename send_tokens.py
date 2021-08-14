@@ -177,13 +177,13 @@ def send_eth(sender_pk,sender_sk,receiver_pk,amounts,w3):
     for i,tx_amount in enumerate(amounts):
         print(i)
         print(tx_amount)
-#         tx_dict = {
-#                     'nonce': starting_nonce+i, #Locally update nonce
+        tx_dict = {
+                    'nonce': starting_nonce+i, #Locally update nonce
 #                     'gasPrice':w3.eth.gas_price,
 #                     'gas': w3.eth.estimate_gas( { 'from': sender_pk, 'to': receiver_pk, 'data': b'', 'amount': tx_amount } ),
 #                     'to': receiver_pk,
 #                     'value': tx_amount,
-#                     'data':b'' }
+                    'data':b'' }
 #          signed_txn = w3.eth.account.sign_transaction(tx_dict, sender_sk)
 #          tx_id = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
 #          tx_ids.append(tx_id)
