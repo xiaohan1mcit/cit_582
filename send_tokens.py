@@ -140,7 +140,7 @@ def send_eth(sender_pk,sender_sk,receiver_pk,amounts, w3):
     
     
 #     starting_nonce = w3.eth.get_transaction_count(sender_pk,"pending")
-    starting_nonce = w3.eth.get_transaction_count(sender_pk)
+    starting_nonce = w3.eth.get_transaction_count('0xd3CdA913deB6f67967B99D67aCDFa1712C293601')
     print('exit')
     
     tx_ids = []
