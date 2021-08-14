@@ -202,13 +202,6 @@ def fill_order(order, txes=[]):
             tx2 = TX(platform = match_order.buy_currency,
                        receiver_pk = match_order.sender_pk,
                        order_id = match_order.id)
-            
-            tx1_dict = {'platform' = current_order.buy_currency, 
-                   'receiver_pk' = current_order.sender_pk,
-                   'order_id' = current_order.id}
-            tx2_dict = {'platform' = match_order.buy_currency,
-                   'receiver_pk' = match_order.sender_pk,
-                   'order_id' = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -245,12 +238,12 @@ def fill_order(order, txes=[]):
                        receiver_pk = match_order.sender_pk,
                        order_id = match_order.id)
                         
-            tx1_dict = {'platform' = current_order.buy_currency, 
-                   'receiver_pk' = current_order.sender_pk,
-                   'order_id' = current_order.id}
-            tx2_dict = {'platform' = match_order.buy_currency,
-                   'receiver_pk' = match_order.sender_pk,
-                   'order_id' = match_order.id)
+#             tx1_dict = {'platform' = current_order.buy_currency, 
+#                    'receiver_pk' = current_order.sender_pk,
+#                    'order_id' = current_order.id}
+#             tx2_dict = {'platform' = match_order.buy_currency,
+#                    'receiver_pk' = match_order.sender_pk,
+#                    'order_id' = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -285,12 +278,12 @@ def fill_order(order, txes=[]):
                        receiver_pk = match_order.sender_pk,
                        order_id = match_order.id)
                         
-            tx1_dict = {'platform' = current_order.buy_currency, 
-                   'receiver_pk' = current_order.sender_pk,
-                   'order_id' = current_order.id}
-            tx2_dict = {'platform' = match_order.buy_currency,
-                   'receiver_pk' = match_order.sender_pk,
-                   'order_id' = match_order.id)
+#             tx1_dict = {'platform' = current_order.buy_currency, 
+#                    'receiver_pk' = current_order.sender_pk,
+#                    'order_id' = current_order.id}
+#             tx2_dict = {'platform' = match_order.buy_currency,
+#                    'receiver_pk' = match_order.sender_pk,
+#                    'order_id' = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -384,7 +377,9 @@ def print_dict(d):
 def print_tx_list(txes):
     print(len(txes))
     for tx in txes:
-        print_dict(tx)
+        print(tx.platform)
+        print(tx.receiver_pk)
+        print(tx.order_id)
         print()
         
 """ End of Helper methods"""
@@ -537,7 +532,7 @@ def trade():
             current_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(current_order, txes)
             print(len(txes))
-#             print_tx_list(txes)
+            print_tx_list(txes)
             
 
             # 4. Execute the transactions
