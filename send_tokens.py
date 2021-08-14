@@ -121,3 +121,15 @@ def send_tokens_eth(w3,sender_sk,txes):
         continue
 
     return tx_ids
+
+
+
+
+def eth_print():
+    print()
+    print()
+    print()
+    print('test')
+    print()
+    print()
+    print()
