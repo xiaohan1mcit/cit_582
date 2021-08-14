@@ -385,6 +385,7 @@ def print_tx_list(txes):
     print(len(txes))
     for tx in txes:
         print(type(tx))
+        print_dict(tx)
 #         print(tx.platform)
 #         print(tx.receiver_pk)
 #         print(tx.order_id)
