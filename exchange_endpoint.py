@@ -57,7 +57,7 @@ def connect_to_blockchains():
         print("Trying to connect to algorand client again")
         print(traceback.format_exc())
         g.acl = connect_to_algo()
-        print("connect_to_algo()-2")
+        print("connect_to_algo()-1-Exception")
     
     try:
         icl_flag = False
@@ -69,12 +69,12 @@ def connect_to_blockchains():
         if icl_flag or not g.icl.health():
             # Define the index client
             g.icl = connect_to_algo(connection_type='indexer')
-            print("connect_to_algo()-3")
-    except Exception as e:
+            print("connect_to_algo()-2")
+    except  as e:
         print("Trying to connect to algorand indexer client again")
         print(traceback.format_exc())
         g.icl = connect_to_algo(connection_type='indexer')
-        print("connect_to_algo()-4")
+        print("connect_to_algo()-2-Exception")
 
         
     try:
