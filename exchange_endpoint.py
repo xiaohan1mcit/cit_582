@@ -605,6 +605,9 @@ def order_book():
     print("order book length: ")
     print(len(order_dict_list))
     print()
+    for order_dict in order_dict_list:
+        print_dict(order_dict)
+        print()
     # print_dict(order_dict_list[-2])
     # print_dict(order_dict_list[-1])
     
@@ -621,6 +624,7 @@ def order_book():
     }    
     
     print("TX book length: ")
+    print()
     print(len(tx_dict_list))
     for tx_dict in tx_dict_list:
         print_dict(tx_dict)
