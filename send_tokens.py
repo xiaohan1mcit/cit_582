@@ -138,7 +138,7 @@ def send_eth(sender_pk,sender_sk,receiver_pk,amounts):
     print(receiver_pk)
     print(amounts)
     
-    
+    w3 = Web3()
     starting_nonce = w3.eth.get_transaction_count(sender_pk,"pending")
     print('exit')
     
