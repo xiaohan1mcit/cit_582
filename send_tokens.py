@@ -17,6 +17,7 @@ def connect_to_algo(connection_type=''):
 #         indexer_client = indexer.IndexerClient(algod_token, algod_address, headers)
 #         indexer_client = indexer.IndexerClient(algod_token, algod_address, headers=purestake_token)
         indexer_client = indexer.IndexerClient("",algod_address, headers)
+        print("return indexer_client")
         return indexer_client
     else:
         # TODO: return an instance of the client for sending transactions
@@ -24,6 +25,7 @@ def connect_to_algo(connection_type=''):
         algod_address = "https://testnet-algorand.api.purestake.io/ps2"
 #         algodclient = algod.AlgodClient(algod_token, algod_address, headers=purestake_token)
         algod_client = algod.AlgodClient(algod_token, algod_address, headers)
+        print("return algod_client")
         return algod_client
 
 #     return None
