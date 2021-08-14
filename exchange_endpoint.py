@@ -202,12 +202,13 @@ def fill_order(order, txes=[]):
             tx2 = TX(platform = match_order.buy_currency,
                        receiver_pk = match_order.sender_pk,
                        order_id = match_order.id)
-#             tx1 = {'platform' = current_order.buy_currency, 
-#                    'receiver_pk' = current_order.sender_pk,
-#                    'order_id' = current_order.id}
-#             tx2 = {'platform' = match_order.buy_currency,
-#                    'receiver_pk' = match_order.sender_pk,
-#                    'order_id' = match_order.id)
+            
+            tx1_dict = {'platform' = current_order.buy_currency, 
+                   'receiver_pk' = current_order.sender_pk,
+                   'order_id' = current_order.id}
+            tx2_dict = {'platform' = match_order.buy_currency,
+                   'receiver_pk' = match_order.sender_pk,
+                   'order_id' = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -243,12 +244,13 @@ def fill_order(order, txes=[]):
             tx2 = TX(platform = match_order.buy_currency,
                        receiver_pk = match_order.sender_pk,
                        order_id = match_order.id)
-#             tx1 = {'platform' = current_order.buy_currency, 
-#                    'receiver_pk' = current_order.sender_pk,
-#                    'order_id' = current_order.id}
-#             tx2 = {'platform' = match_order.buy_currency,
-#                    'receiver_pk' = match_order.sender_pk,
-#                    'order_id' = match_order.id)
+                        
+            tx1_dict = {'platform' = current_order.buy_currency, 
+                   'receiver_pk' = current_order.sender_pk,
+                   'order_id' = current_order.id}
+            tx2_dict = {'platform' = match_order.buy_currency,
+                   'receiver_pk' = match_order.sender_pk,
+                   'order_id' = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -282,12 +284,13 @@ def fill_order(order, txes=[]):
             tx2 = TX(platform = match_order.buy_currency,
                        receiver_pk = match_order.sender_pk,
                        order_id = match_order.id)
-#             tx1 = {'platform' = current_order.buy_currency, 
-#                    'receiver_pk' = current_order.sender_pk,
-#                    'order_id' = current_order.id}
-#             tx2 = {'platform' = match_order.buy_currency,
-#                    'receiver_pk' = match_order.sender_pk,
-#                    'order_id' = match_order.id)
+                        
+            tx1_dict = {'platform' = current_order.buy_currency, 
+                   'receiver_pk' = current_order.sender_pk,
+                   'order_id' = current_order.id}
+            tx2_dict = {'platform' = match_order.buy_currency,
+                   'receiver_pk' = match_order.sender_pk,
+                   'order_id' = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
