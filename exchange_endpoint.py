@@ -246,8 +246,8 @@ def fill_order(order, txes=[]):
 #             tx2_dict = {'platform' = match_order.buy_currency,
 #                    'receiver_pk' = match_order.sender_pk,
 #                    'order_id' = match_order.id)
-            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id}
-            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id}
+            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id, 'amount': current_order.buy_amount}
+            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id, 'amount': match_order.buy_amount}
             txes.append(tx1_dict)
             txes.append(tx2_dict)
             
