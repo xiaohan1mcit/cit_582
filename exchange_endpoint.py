@@ -196,18 +196,18 @@ def fill_order(order, txes=[]):
         # no child order needs to be generated
         if (current_order.sell_amount == match_order.buy_amount):
             # since we find a match, create transactions
-#             tx1 = TX(platform = current_order.buy_currency,
-#                        receiver_pk = current_order.sender_pk,
-#                        order_id = current_order.id)
-#             tx2 = TX(platform = match_order.buy_currency,
-#                        receiver_pk = match_order.sender_pk,
-#                        order_id = match_order.id)
-            tx1 = {platform = current_order.buy_currency, 
-                   eceiver_pk = current_order.sender_pk,
-                   order_id = current_order.id}
-            tx2 = {platform = match_order.buy_currency,
-                   receiver_pk = match_order.sender_pk,
-                   order_id = match_order.id)
+            tx1 = TX(platform = current_order.buy_currency,
+                       receiver_pk = current_order.sender_pk,
+                       order_id = current_order.id)
+            tx2 = TX(platform = match_order.buy_currency,
+                       receiver_pk = match_order.sender_pk,
+                       order_id = match_order.id)
+#             tx1 = {platform = current_order.buy_currency, 
+#                    eceiver_pk = current_order.sender_pk,
+#                    order_id = current_order.id}
+#             tx2 = {platform = match_order.buy_currency,
+#                    receiver_pk = match_order.sender_pk,
+#                    order_id = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -237,18 +237,18 @@ def fill_order(order, txes=[]):
             g.session.commit()
             
             # since we find a match, create transactions
-#             tx1 = TX(platform = current_order.buy_currency,
-#                        receiver_pk = current_order.sender_pk,
-#                        order_id = current_order.id)
-#             tx2 = TX(platform = match_order.buy_currency,
-#                        receiver_pk = match_order.sender_pk,
-#                        order_id = match_order.id)
-            tx1 = {platform = current_order.buy_currency, 
-                   eceiver_pk = current_order.sender_pk,
-                   order_id = current_order.id}
-            tx2 = {platform = match_order.buy_currency,
-                   receiver_pk = match_order.sender_pk,
-                   order_id = match_order.id)
+            tx1 = TX(platform = current_order.buy_currency,
+                       receiver_pk = current_order.sender_pk,
+                       order_id = current_order.id)
+            tx2 = TX(platform = match_order.buy_currency,
+                       receiver_pk = match_order.sender_pk,
+                       order_id = match_order.id)
+#             tx1 = {platform = current_order.buy_currency, 
+#                    eceiver_pk = current_order.sender_pk,
+#                    order_id = current_order.id}
+#             tx2 = {platform = match_order.buy_currency,
+#                    receiver_pk = match_order.sender_pk,
+#                    order_id = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -276,18 +276,18 @@ def fill_order(order, txes=[]):
             g.session.commit()
             
             # since we find a match, create transactions
-#             tx1 = TX(platform = current_order.buy_currency,
-#                        receiver_pk = current_order.sender_pk,
-#                        order_id = current_order.id)
-#             tx2 = TX(platform = match_order.buy_currency,
-#                        receiver_pk = match_order.sender_pk,
-#                        order_id = match_order.id)
-            tx1 = {platform = current_order.buy_currency, 
-                   eceiver_pk = current_order.sender_pk,
-                   order_id = current_order.id}
-            tx2 = {platform = match_order.buy_currency,
-                   receiver_pk = match_order.sender_pk,
-                   order_id = match_order.id)
+            tx1 = TX(platform = current_order.buy_currency,
+                       receiver_pk = current_order.sender_pk,
+                       order_id = current_order.id)
+            tx2 = TX(platform = match_order.buy_currency,
+                       receiver_pk = match_order.sender_pk,
+                       order_id = match_order.id)
+#             tx1 = {platform = current_order.buy_currency, 
+#                    eceiver_pk = current_order.sender_pk,
+#                    order_id = current_order.id}
+#             tx2 = {platform = match_order.buy_currency,
+#                    receiver_pk = match_order.sender_pk,
+#                    order_id = match_order.id)
             txes.append(tx1)
             txes.append(tx2)
             
@@ -534,7 +534,7 @@ def trade():
             current_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(current_order, txes)
             print(len(txes))
-            print_tx_list(txes)
+#             print_tx_list(txes)
             
 
             # 4. Execute the transactions
