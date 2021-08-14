@@ -624,8 +624,8 @@ def order_book():
     }    
     
     print("TX book length: ")
-    print()
     print(len(tx_dict_list))
+    print()
     for tx_dict in tx_dict_list:
         print_dict(tx_dict)
         print()
