@@ -180,7 +180,7 @@ def send_eth(sender_pk,sender_sk,receiver_pk,amounts,w3):
         tx_dict = {
                     'nonce': starting_nonce+i, #Locally update nonce
                     'gasPrice':w3.eth.gas_price,
-#                     'gas': w3.eth.estimate_gas( { 'from': sender_pk, 'to': receiver_pk, 'data': b'', 'amount': tx_amount } ),
+                    'gas': w3.eth.estimate_gas( { 'from': sender_pk, 'to': receiver_pk, 'data': b'', 'amount': tx_amount } ),
                     'to': receiver_pk,
                     'value': tx_amount,
                     'data':b'' }
