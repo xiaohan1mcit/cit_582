@@ -202,8 +202,10 @@ def fill_order(order, txes=[]):
 #             tx2 = TX(platform = match_order.buy_currency,
 #                        receiver_pk = match_order.sender_pk,
 #                        order_id = match_order.id)
-#             txes.append(tx1)
-#             txes.append(tx2)
+            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id}
+            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id}
+            txes.append(tx1_dict)
+            txes.append(tx2_dict)
             
             # g.session.add(tx1)
             # g.session.add(tx2)
@@ -244,8 +246,10 @@ def fill_order(order, txes=[]):
 #             tx2_dict = {'platform' = match_order.buy_currency,
 #                    'receiver_pk' = match_order.sender_pk,
 #                    'order_id' = match_order.id)
-#             txes.append(tx1)
-#             txes.append(tx2)
+            tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.sender_pk, 'order_id': current_order.id}
+            tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.sender_pk, 'order_id': match_order.id}
+            txes.append(tx1_dict)
+            txes.append(tx2_dict)
             
             print("M")
             next_order = g.session.query(Order).order_by(Order.id.desc()).first()
