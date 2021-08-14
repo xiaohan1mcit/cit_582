@@ -360,6 +360,7 @@ def print_dict(d):
 
 # print a list of tx
 def print_tx_list(txes):
+    print(len(txes))
     for tx in txes:
         print(tx['id'])
         print(tx['platform'])
