@@ -344,7 +344,7 @@ def execute_txes(txes):
     
     eth_print()    
     w3 = Web3()
-    send_tokens_eth(w3, eth_sk, txes):
+#     send_tokens_eth(w3, eth_sk, txes):
 
 
     # TODO: 
