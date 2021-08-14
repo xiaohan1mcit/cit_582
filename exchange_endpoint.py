@@ -358,7 +358,15 @@ def print_dict(d):
         print(key, ' : ', value)
 
 
-
+# print a list of tx
+def print_tx_list(txes):
+    for tx in txes:
+        print(tx['id'])
+        print(tx['platform'])
+        print(tx['receiver_pk'])
+        print(tx['order_id'])
+        print()
+        
 """ End of Helper methods"""
 
 
@@ -509,7 +517,7 @@ def trade():
             current_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(current_order, txes)
             print(len(txes))
-            print(txes)
+            print_tx_list(txes)
             
 
             # 4. Execute the transactions
