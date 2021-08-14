@@ -122,9 +122,10 @@ def send_tokens_eth(w3,sender_sk,txes):
         # Your code here
         print(i)
         print(tx['order_id'])
-#         tx_amounts = [tx_amount for _ in range(10)]
-#         print(type(tx_amounts))
-#         print(tx_amounts)
+        tx_amount = tx['amount']
+        tx_amounts = [tx_amount for _ in range(10)]
+        print(type(tx_amounts))
+        print(tx_amounts)
 #         send_eth(sender_pk,sender_sk,receiver_pk,tx_amounts)
         # continue
 
