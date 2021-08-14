@@ -341,6 +341,9 @@ def execute_txes(txes):
     
     print_tx_list(algo_txes)
     print_tx_list(eth_txes)
+    
+    send_tokens.eth_print()
+    print("\n\n\nwoozie\n\n\n")
 
 
     # TODO: 
@@ -361,8 +364,7 @@ def execute_txes(txes):
         g.session.add(tx)
         g.session.commit()
         
-    send_tokens.eth_print()
-    print("\n\n\nwoozie\n\n\n")
+    
 
 #     pass
 
