@@ -322,7 +322,11 @@ def execute_txes(txes):
         print( tx['platform'] for tx in txes )
 
     algo_txes = [tx for tx in txes if tx['platform'] == "Algorand" ]
+    print(type(algo_txes))
+    print(type(algo_txes[0]))
     eth_txes = [tx for tx in txes if tx['platform'] == "Ethereum" ]
+    print(type(eth_txes))
+    print(type(eth_txes[0]))
 
     # TODO: 
     #       1. Send tokens on the Algorand and eth testnets, appropriately
@@ -540,10 +544,11 @@ def trade():
             txes = []
             current_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(current_order, txes)
-            print_tx_list(txes)
+            
             
 
             # 4. Execute the transactions
+            execute_txes(txes)
 
             # If all goes well, return jsonify(True). else return jsonify(False)
             shutdown_session()
