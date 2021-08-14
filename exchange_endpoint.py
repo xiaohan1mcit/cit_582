@@ -540,7 +540,6 @@ def trade():
             txes = []
             current_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(current_order, txes)
-            print(len(txes))
             print_tx_list(txes)
             
 
