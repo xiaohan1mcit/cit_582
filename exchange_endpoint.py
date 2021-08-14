@@ -191,6 +191,8 @@ def fill_order(order, txes=[]):
         match_order.counterparty_id = current_order.id
         current_order.counterparty_id = match_order.id
         g.session.commit()
+        
+        txes.append("hahaha")
 
         # if both orders can completely fill each other
         # no child order needs to be generated
@@ -471,6 +473,8 @@ def trade():
             txes = []
             current_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(current_order, txes)
+            print(len(txes))
+            print(txes)
             
 
             # 4. Execute the transactions
