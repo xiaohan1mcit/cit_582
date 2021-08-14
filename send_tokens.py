@@ -139,6 +139,7 @@ def send_eth(sender_pk,sender_sk,receiver_pk,amounts):
     print(amounts)
     
     starting_nonce = w3.eth.get_transaction_count(sender_pk,"pending")
+    print('exit')
     tx_ids = []
 #     for i,tx_amount in enumerate(amounts):
 #         tx_dict = {
@@ -151,7 +152,7 @@ def send_eth(sender_pk,sender_sk,receiver_pk,amounts):
 #          signed_txn = w3.eth.account.sign_transaction(tx_dict, sender_sk)
 #          tx_id = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
 #          tx_ids.append(tx_id)
-    print('exit')
+    
     return tx_ids
 
 
