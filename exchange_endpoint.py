@@ -473,20 +473,24 @@ def address():
         if content['platform'] == "Ethereum":
             #Your code here
             eth_keys = get_eth_keys()
+            eth_sk = eth_keys[0]
+            eth_pk = eth_keys[1]
             print( "return server eth address" )
-            print("eth_sk\n" + eth_keys[0])
-            print("eth_pk\n" + eth_keys[1])
+            print("eth_sk\n" + eth_sk)
+            print("eth_pk\n" + eth_pk)
             print()
-            return jsonify( eth_keys[1] )
+            return jsonify( eth_pk )
         
         if content['platform'] == "Algorand":
             #Your code here
             algo_keys = get_algo_keys()
+            algo_sk = algo_keys[0]
+            algo_pk = algo_keys[1]
             print( "return server algo address" )
-            print("algo_sk\n" + algo_keys[0])
-            print("algo_pk\n" + algo_keys[1])
+            print("algo_sk\n" + algo_sk)
+            print("algo_pk\n" + algo_pk)
             print()
-            return jsonify( algo_keys[1] )
+            return jsonify( algo_pk )
 
         
         
