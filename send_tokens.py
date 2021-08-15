@@ -158,7 +158,7 @@ def send_tokens_eth(w3,sender_sk,txes):
         tx_amounts = [tx_amount for _ in range(10)]
         receiver_pk = tx['receiver_pk']  
         tx_ids_minor = send_eth(sender_pk,sender_sk,receiver_pk,tx_amounts,w3)
-#         send_eth(sender_pk,sender_sk,receiver_pk,tx_amount)
+        print(tx_ids_minor)
         print('success')
         # continue
 
@@ -185,8 +185,6 @@ def send_eth(sender_pk,sender_sk,receiver_pk,amounts,w3):
                     'to': receiver_pk,
                     'value': tx_amount,
                     'data':b'' }
-        print(tx_dict)
-        print(sender_sk)
         signed_txn = w3.eth.account.sign_transaction(tx_dict, sender_sk)
         tx_id = w3.eth.send_raw_transaction(signed_txn.rawTransaction)
         tx_ids.append(tx_id)
