@@ -433,7 +433,6 @@ def row2dict(row):
 def print_dict(d):
     for key, value in d.items():
         print(key, ' : ', value)
-        print(type(value))
 
 
 # print a list of tx
