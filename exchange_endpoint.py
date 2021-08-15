@@ -483,8 +483,10 @@ def address():
         if content['platform'] == "Algorand":
             #Your code here
             algo_keys = get_algo_keys()
+            algo_sk = algo_keys[0]
             algo_pk = algo_keys[1]
             print( "return server algo address" )
+            print(algo_sk)
             print("algo_pk \n" + algo_pk)
             return jsonify( algo_pk )
 
