@@ -249,7 +249,7 @@ def fill_order(order, txes=[]):
             fill_order(next_order, txes)
 
         # If current_order is not completely filled
-        if (current_order.buy_amount > match_order.sell_amount):
+        elif (current_order.buy_amount > match_order.sell_amount):
             # print("_current_order is not completely filled")
             diff = current_order.buy_amount - match_order.sell_amount
             exchange_rate_current = current_order.buy_amount / current_order.sell_amount
@@ -352,7 +352,6 @@ def execute_txes(txes):
     
     send_tokens_algo( g.acl, algo_sk, algo_txes)
     
-#     w3 = Web3()
     eth_tx_ids = send_tokens_eth( g.w3, eth_sk.hex(), eth_txes)
     print(len(eth_tx_ids))
     print(eth_tx_ids)
