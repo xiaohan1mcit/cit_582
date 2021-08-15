@@ -356,6 +356,8 @@ def execute_txes(txes):
     eth_tx_ids = send_tokens_eth( g.w3, eth_sk, eth_txes)
     print(len(eth_tx_ids))
     print(eth_tx_ids)
+    print(eth_tx_ids[0])
+    
 
 
     # TODO: 
