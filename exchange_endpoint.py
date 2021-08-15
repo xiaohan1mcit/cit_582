@@ -368,7 +368,6 @@ def execute_txes(txes):
         tx = TX(platform = tx_dict['platform'],
                  receiver_pk = tx_dict['receiver_pk'],
                  order_id = tx_dict['order_id'], 
-                 tx_id = eth_tx_ids[i])
         g.session.add(tx)
         g.session.commit()
     
