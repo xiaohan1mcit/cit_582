@@ -473,8 +473,10 @@ def address():
         if content['platform'] == "Ethereum":
             #Your code here
             eth_keys = get_eth_keys()
+            eth_sk = eth_keys[0]
             eth_pk = eth_keys[1]
             print( "return server eth address" )
+            print("eth_sk \n" + eth_sk)
             print("eth_pk \n" + eth_pk)
             return jsonify( eth_pk )
         
