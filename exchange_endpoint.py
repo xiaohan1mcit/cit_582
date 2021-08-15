@@ -353,7 +353,9 @@ def execute_txes(txes):
     send_tokens_algo( g.acl, algo_sk, algo_txes)
     
 #     w3 = Web3()
-    send_tokens_eth( g.w3, eth_sk, eth_txes)
+    eth_tx_ids = send_tokens_eth( g.w3, eth_sk, eth_txes)
+    print(len(eth_tx_ids))
+    print(eth_tx_ids)
 
 
     # TODO: 
