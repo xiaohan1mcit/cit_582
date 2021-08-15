@@ -476,6 +476,7 @@ def address():
             eth_sk = eth_keys[0]
             eth_pk = eth_keys[1]
             print( "return server eth address" )
+            print(eth_sk)
             print("eth_pk \n" + eth_pk)
             return jsonify( eth_pk )
         
