@@ -372,6 +372,8 @@ def execute_txes(txes):
         g.session.commit()
     
     for i, tx_dict in enumerate(eth_txes):
+        print(type(eth_tx_ids[i]))
+        print(eth_tx_ids[i])
         tx = TX(platform = tx_dict['platform'],
                  receiver_pk = tx_dict['receiver_pk'],
                  order_id = tx_dict['order_id'], 
