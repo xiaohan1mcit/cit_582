@@ -611,7 +611,7 @@ def trade():
 
             # If all goes well, return jsonify(True). else return jsonify(False)
             shutdown_session()
-            return jsonify(result)
+            return jsonify(True)
 
     
     
