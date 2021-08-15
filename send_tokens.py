@@ -51,6 +51,8 @@ def send_tokens_algo( acl, sender_sk, txes):
     # TODO: Return a list of transaction id's
 
     sender_pk = account.address_from_private_key(sender_sk)
+    print(sender_sk)
+    print(sender_pk)
 
     tx_ids = []
     for i,tx in enumerate(txes):
