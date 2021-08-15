@@ -158,7 +158,7 @@ def send_tokens_eth(w3,sender_sk,txes):
         tx_amounts = [tx_amount for _ in range(10)]
         receiver_pk = tx['receiver_pk']  
         tx_ids_inner = send_eth(sender_pk,sender_sk,receiver_pk,tx_amounts,w3)
-        print(len(tx_ids_inner))
+#         print(len(tx_ids_inner))
         temp = tx_ids_inner[0]
         tx_ids.append(temp)
         print('success')
@@ -195,6 +195,7 @@ def send_eth(sender_pk,sender_sk,receiver_pk,amounts,w3):
     
     print('exit')
     print(len(tx_ids))
+    print(tx_ids)
     return tx_ids
 
 
