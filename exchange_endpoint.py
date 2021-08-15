@@ -474,14 +474,14 @@ def address():
             #Your code here
             eth_pk = get_eth_keys()[1]
             print( "return server eth address" )
-            print(eth_pk)
+            print("eth_pk " + eth_pk)
             return jsonify( eth_pk )
         
         if content['platform'] == "Algorand":
             #Your code here
             algo_pk = get_algo_keys()[1]
             print( "return server algo address" )
-            print(algo_pk)
+            print("algo_pk " + algo_pk)
             return jsonify( algo_pk )
 
         
