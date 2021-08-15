@@ -345,6 +345,10 @@ def execute_txes(txes):
     algo_txes = [tx for tx in txes if tx['platform'] == "Algorand" ]
     eth_txes = [tx for tx in txes if tx['platform'] == "Ethereum" ]
     
+    print('testtest')
+    print(len(algo_txes))
+    print(len(eth_txes))
+    
     print("\nalgo_txes\n")
     print_tx_list(algo_txes)
     print("\neth_txes\n")
