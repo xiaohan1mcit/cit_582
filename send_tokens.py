@@ -159,6 +159,9 @@ def send_tokens_eth(w3,sender_sk,txes):
         receiver_pk = tx['receiver_pk']  
         tx_ids_inner = send_eth(sender_pk,sender_sk,receiver_pk,tx_amounts,w3)
         
+        for tx_id in tx_ids_inner:
+            receipt = wait_for_confirmation_eth(w3, tx_id)
+        
         tx_ids.append(tx_ids_inner[0])
         print('success')
         # continue
