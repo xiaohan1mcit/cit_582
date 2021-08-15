@@ -364,10 +364,11 @@ def execute_txes(txes):
     #       1. Send tokens on the Algorand and eth testnets, appropriately
     #          We've provided the send_tokens_algo and send_tokens_eth skeleton methods in send_tokens.py
     #       2. Add all transactions to the TX table
-    for tx_dict in algo_txes:
+    for i, tx_dict in enumerate(algo_txes):
         tx = TX(platform = tx_dict['platform'],
                  receiver_pk = tx_dict['receiver_pk'],
-                 order_id = tx_dict['order_id'])
+                 order_id = tx_dict['order_id'], 
+                 tx_id = eth_tx_ids[i])
         g.session.add(tx)
         g.session.commit()
     
