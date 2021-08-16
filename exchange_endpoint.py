@@ -354,24 +354,17 @@ def execute_txes(txes):
     print("\neth_txes\n")
     print_tx_list(eth_txes)
     
+    # TODO: 
+    #       1. Send tokens on the Algorand and eth testnets, appropriately
+    #          We've provided the send_tokens_algo and send_tokens_eth skeleton methods in send_tokens.py
+    #       2. Add all transactions to the TX table
+    
     algo_tx_ids = send_tokens_algo( g.acl, algo_sk, algo_txes)
     print(len(algo_tx_ids))
     print(algo_tx_ids)
     print(algo_tx_ids[0])
     print()
     
-    eth_tx_ids = send_tokens_eth( g.w3, eth_sk.hex(), eth_txes)
-    print(len(eth_tx_ids))
-    print(eth_tx_ids)
-    print(eth_tx_ids[0])
-    print()
-    
-
-
-    # TODO: 
-    #       1. Send tokens on the Algorand and eth testnets, appropriately
-    #          We've provided the send_tokens_algo and send_tokens_eth skeleton methods in send_tokens.py
-    #       2. Add all transactions to the TX table
     for i, tx_dict in enumerate(algo_txes):
         print(type(algo_tx_ids[i]))
         print(algo_tx_ids[i])
@@ -382,6 +375,12 @@ def execute_txes(txes):
         g.session.add(tx)
         g.session.commit()
     
+    eth_tx_ids = send_tokens_eth( g.w3, eth_sk.hex(), eth_txes)
+    print(len(eth_tx_ids))
+    print(eth_tx_ids)
+    print(eth_tx_ids[0])
+    print()
+
     for i, tx_dict in enumerate(eth_txes):
         print(type(eth_tx_ids[i]))
         print(eth_tx_ids[i])
