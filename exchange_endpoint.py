@@ -375,21 +375,21 @@ def execute_txes(txes):
         g.session.add(tx)
         g.session.commit()
     
-    eth_tx_ids = send_tokens_eth( g.w3, eth_sk.hex(), eth_txes)
-    print(len(eth_tx_ids))
-    print(eth_tx_ids)
-    print(eth_tx_ids[0])
-    print()
+#     eth_tx_ids = send_tokens_eth( g.w3, eth_sk.hex(), eth_txes)
+#     print(len(eth_tx_ids))
+#     print(eth_tx_ids)
+#     print(eth_tx_ids[0])
+#     print()
 
-    for i, tx_dict in enumerate(eth_txes):
-        print(type(eth_tx_ids[i]))
-        print(eth_tx_ids[i])
-        tx = TX(platform = tx_dict['platform'],
-                 receiver_pk = tx_dict['receiver_pk'],
-                 order_id = tx_dict['order_id'], 
-                 tx_id = eth_tx_ids[i])
-        g.session.add(tx)
-        g.session.commit()
+#     for i, tx_dict in enumerate(eth_txes):
+#         print(type(eth_tx_ids[i]))
+#         print(eth_tx_ids[i])
+#         tx = TX(platform = tx_dict['platform'],
+#                  receiver_pk = tx_dict['receiver_pk'],
+#                  order_id = tx_dict['order_id'], 
+#                  tx_id = eth_tx_ids[i])
+#         g.session.add(tx)
+#         g.session.commit()
         
     
 
