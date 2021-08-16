@@ -67,12 +67,12 @@ def send_tokens_algo( acl, sender_sk, txes):
         first_valid_round = params.first
         last_valid_round = params.last
         tx_fee = params.min_fee
-        send_amount = tx['amount']
+        send_amount = 1
         
         
     
         # "Replace me with a transaction object"
-        unsigned_tx = transaction.PaymentTxn(pk, tx_fee, first_valid_round, last_valid_round, gen_hash, receiver_pk, tx_amount,
+        unsigned_tx = transaction.PaymentTxn(sender_pk, tx_fee, first_valid_round, last_valid_round, gen_hash, tx['receiver_pk'], tx['amount'],
                                  flat_fee=True)
         print("reach")
 
