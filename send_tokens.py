@@ -53,6 +53,8 @@ def send_tokens_algo( acl, sender_sk, txes):
     sender_pk = account.address_from_private_key(sender_sk)
     print(sender_sk)
     print(sender_pk)
+    
+    print("hehehehehehehehehehe")
 
     tx_ids = []
     for i,tx in enumerate(txes):
@@ -72,7 +74,7 @@ def send_tokens_algo( acl, sender_sk, txes):
         # "Replace me with a SignedTransaction object"
         signed_tx = unsigned_tx.sign(sender_sk)
         
-        print("hehehehehehehehehehe")
+        
         
         
         try:
