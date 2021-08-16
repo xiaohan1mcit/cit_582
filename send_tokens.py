@@ -75,8 +75,9 @@ def send_tokens_algo( acl, sender_sk, txes):
         print(amount)
     
         # "Replace me with a transaction object"
-        unsigned_tx = transaction.PaymentTxn(sender_pk, tx_fee, first_valid_round, last_valid_round, gen_hash, receiver, amount,
-                                 flat_fee=True)
+#         unsigned_tx = transaction.PaymentTxn(sender_pk, tx_fee, first_valid_round, last_valid_round, gen_hash, receiver, amount, flat_fee=True)
+        unsigned_tx = transaction.PaymentTxn(sender_pk, params, receiver, amount)
+        
         print("reach")
 
         # "Replace me with a SignedTransaction object"
