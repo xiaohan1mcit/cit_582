@@ -633,8 +633,6 @@ def order_book():
     for order_dict in order_dict_list:
         print_dict(order_dict)
         print()
-    # print_dict(order_dict_list[-2])
-    # print_dict(order_dict_list[-1])
     
     #############
     
@@ -654,9 +652,7 @@ def order_book():
     for tx_dict in tx_dict_list:
         print_dict(tx_dict)
         print()
-    
-    
-
+   
 #     shutdown_session()
     return jsonify(result)
 
