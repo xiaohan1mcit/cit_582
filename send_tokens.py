@@ -57,7 +57,7 @@ def send_tokens_algo( acl, sender_sk, txes):
     tx_ids = []
     for i,tx in enumerate(txes):
         
-#         params = acl.suggested_params()
+        params = acl.suggested_params()
 #         gen = params.gen
 #         gen_hash = params.gh
 #         first_valid_round = params.first
