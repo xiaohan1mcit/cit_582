@@ -354,12 +354,17 @@ def execute_txes(txes):
     print("\neth_txes\n")
     print_tx_list(eth_txes)
     
-    send_tokens_algo( g.acl, algo_sk, algo_txes)
+    algo_tx_ids = send_tokens_algo( g.acl, algo_sk.hex(), algo_txes)
+    print(len(algo_tx_ids))
+    print(algo_tx_ids)
+    print(algo_tx_ids[0])
+    print()
     
     eth_tx_ids = send_tokens_eth( g.w3, eth_sk.hex(), eth_txes)
     print(len(eth_tx_ids))
     print(eth_tx_ids)
     print(eth_tx_ids[0])
+    print()
     
 
 
@@ -368,9 +373,12 @@ def execute_txes(txes):
     #          We've provided the send_tokens_algo and send_tokens_eth skeleton methods in send_tokens.py
     #       2. Add all transactions to the TX table
     for i, tx_dict in enumerate(algo_txes):
+        print(type(algo_tx_ids[i]))
+        print(algo_tx_ids[i])
         tx = TX(platform = tx_dict['platform'],
                  receiver_pk = tx_dict['receiver_pk'],
-                 order_id = tx_dict['order_id'])
+                 order_id = tx_dict['order_id'], 
+                 tx_id = algo_tx_ids[i])
         g.session.add(tx)
         g.session.commit()
     
