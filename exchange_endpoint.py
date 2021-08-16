@@ -37,12 +37,7 @@ def create_session():
     
     
     
-# @app.teardown_appcontext
-# # def shutdown_session(response_or_exc):
-# def shutdown_session(exception=None):
-#     sys.stdout.flush()
-#     g.session.commit()
-#     g.session.remove()   
+  
     
  
 @app.teardown_appcontext
@@ -652,37 +647,6 @@ def order_book():
 
 
 
-
-# @app.route('/order_book')
-# def order_book():
-#     #Your code here
-#     #Note that you can access the database session using g.session
-    
-#     # The “/order_book” endpoint should return a list of all orders in the database.
-#     # The response should contain a single key “data” that refers to a list of orders formatted as JSON.
-#     # Each order should be a dict with (at least) the following fields
-#     # ("sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount", “signature”).
-#     print("--------- order_book ---------")
-#     create_session()
-        
-#     # get orders from DB into a list
-#     order_dict_list = [
-#            row2dict(order)
-#            for order in g.session.query(Order).all()
-#     ]
-        
-#     # add the list into a dict
-#     result = {
-#         'data': order_dict_list
-#     }    
-    
-#     print("order book length: ")
-#     print(len(order_dict_list))
-#     # print_dict(order_dict_list[-2])
-#     # print_dict(order_dict_list[-1])
-
-#     shutdown_session()
-#     return jsonify(result)
 
 
 
