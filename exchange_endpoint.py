@@ -566,7 +566,7 @@ def trade():
         # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
         if result is True:
             print("signature verifies")
-            create_session()
+#             create_session()
             order_obj = Order(sender_pk=payload['sender_pk'],
                               receiver_pk=payload['receiver_pk'],
                               buy_currency=payload['buy_currency'],
@@ -598,7 +598,7 @@ def trade():
             execute_txes(txes)
 
             # If all goes well, return jsonify(True). else return jsonify(False)
-            shutdown_session()
+#             shutdown_session()
             return jsonify(True)
 
     
