@@ -679,7 +679,7 @@ def order_book():
     
 
     shutdown_session()
-    return jsonify(result)
+    return jsonify(data=order_dict_list)
 
 
 
