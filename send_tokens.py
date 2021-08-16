@@ -50,7 +50,7 @@ def send_tokens_algo( acl, sender_sk, txes):
     
     # TODO: Return a list of transaction id's
     
-    print("hehehehehehehehehehe")
+    print("hehehe")
 
     sender_pk = account.address_from_private_key(sender_sk)
     print(sender_sk)
@@ -76,7 +76,7 @@ def send_tokens_algo( acl, sender_sk, txes):
         # "Replace me with a SignedTransaction object"
         signed_tx = unsigned_tx.sign(sender_sk)
         
-        
+        print("reach")
         
         
         try:
