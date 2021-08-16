@@ -119,10 +119,8 @@ def log_message(message_dict):
     # msg = json.dumps(message_dict) # generate json string
     
     # TODO: Add message to the Log table
-#     create_session()
     order_obj = Log(message=message_dict)
     g.session.add(order_obj)
-#     shutdown_session()
     #return
 
     
@@ -566,7 +564,6 @@ def trade():
         # as well as all of the fields under the ‘payload’ in the “Order” table EXCEPT for 'platform’.
         if result is True:
             print("signature verifies")
-#             create_session()
             order_obj = Order(sender_pk=payload['sender_pk'],
                               receiver_pk=payload['receiver_pk'],
                               buy_currency=payload['buy_currency'],
@@ -598,7 +595,6 @@ def trade():
             execute_txes(txes)
 
             # If all goes well, return jsonify(True). else return jsonify(False)
-#             shutdown_session()
             return jsonify(True)
 
     
@@ -614,7 +610,6 @@ def order_book():
     
     # Same as before
     print("--------- order_book ---------")
-#     create_session()
         
     # get orders from DB into a list
     order_dict_list = [
@@ -653,7 +648,6 @@ def order_book():
         print_dict(tx_dict)
         print()
    
-#     shutdown_session()
     return jsonify(result)
 
 
