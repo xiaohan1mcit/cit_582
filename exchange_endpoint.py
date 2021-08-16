@@ -354,7 +354,7 @@ def execute_txes(txes):
     print("\neth_txes\n")
     print_tx_list(eth_txes)
     
-    algo_tx_ids = send_tokens_algo( g.acl, algo_sk.hex(), algo_txes)
+    algo_tx_ids = send_tokens_algo( g.acl, algo_sk, algo_txes)
     print(len(algo_tx_ids))
     print(algo_tx_ids)
     print(algo_tx_ids[0])
