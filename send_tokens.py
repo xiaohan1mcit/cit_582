@@ -57,26 +57,39 @@ def send_tokens_algo( acl, sender_sk, txes):
     tx_ids = []
     for i,tx in enumerate(txes):
         
-        unsigned_tx = "Replace me with a transaction object"
+        params = acl.suggested_params()
+        gen = params.gen
+        gen_hash = params.gh
+        first_valid_round = params.first
+        last_valid_round = params.last
+        tx_fee = params.min_fee
+        send_amount = tx['amount']
+    
+        # "Replace me with a transaction object"
+        unsigned_tx = transaction.PaymentTxn(pk, tx_fee, first_valid_round, last_valid_round, gen_hash, receiver_pk, tx_amount,
+                                 flat_fee=True)
 
-        # TODO: Sign the transaction
-        signed_tx = "Replace me with a SignedTransaction object"
+        # "Replace me with a SignedTransaction object"
+        signed_tx = unsigned_tx.sign(sender_sk)
         
         print("hehehehehehehehehehe")
         
         
-#         try:
-#             print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
+        try:
+            print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
             
-#             # TODO: Send the transaction to the testnet
+            # TODO: Send the transaction to the testnet
+            # "Replace me with the tx_id"
+            tx_id = acl.send_transaction(signed_tx)
             
-#             tx_id = "Replace me with the tx_id"
-#             txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
-#             print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
-#         except Exception as e:
-#             print(e)
+            txinfo = wait_for_confirmation_algo(acl, txid=tx_id )
+            print(f"Sent {tx['amount']} microalgo in transaction: {tx_id}\n" )
+            tx_ids.append(tx_id)
+        except Exception as e:
+            print(e)
 
-    return []
+#     return []
+    return tx_ids
 
 
 
