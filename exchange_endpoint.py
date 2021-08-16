@@ -37,19 +37,19 @@ def create_session():
     
     
     
-@app.teardown_appcontext
-# def shutdown_session(response_or_exc):
-def shutdown_session(exception=None):
-    sys.stdout.flush()
-    g.session.commit()
-    g.session.remove()   
-    
- 
 # @app.teardown_appcontext
-# def shutdown_session(response_or_exc):
+# # def shutdown_session(response_or_exc):
+# def shutdown_session(exception=None):
 #     sys.stdout.flush()
 #     g.session.commit()
-#     g.session.remove()
+#     g.session.remove()   
+    
+ 
+@app.teardown_appcontext
+def shutdown_session(response_or_exc):
+    sys.stdout.flush()
+    g.session.commit()
+    g.session.remove()
 
 def connect_to_blockchains():
     try:
@@ -614,7 +614,7 @@ def order_book():
     
     # Same as before
     print("--------- order_book ---------")
-    create_session()
+#     create_session()
         
     # get orders from DB into a list
     order_dict_list = [
@@ -657,7 +657,7 @@ def order_book():
     
     
 
-    shutdown_session()
+#     shutdown_session()
     return jsonify(result)
 
 
