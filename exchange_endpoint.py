@@ -223,19 +223,6 @@ def fill_order(order, txes=[]):
             g.session.commit()
             
             # since we find a match, create transactions
-#             tx1 = TX(platform = current_order.buy_currency,
-#                        receiver_pk = current_order.sender_pk,
-#                        order_id = current_order.id)
-#             tx2 = TX(platform = match_order.buy_currency,
-#                        receiver_pk = match_order.sender_pk,
-#                        order_id = match_order.id)
-                        
-#             tx1_dict = {'platform' = current_order.buy_currency, 
-#                    'receiver_pk' = current_order.sender_pk,
-#                    'order_id' = current_order.id}
-#             tx2_dict = {'platform' = match_order.buy_currency,
-#                    'receiver_pk' = match_order.sender_pk,
-#                    'order_id' = match_order.id)
             tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.receiver_pk, 'order_id': current_order.id, 'amount': current_order.buy_amount}
             tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.receiver_pk, 'order_id': match_order.id, 'amount': current_order.sell_amount}
             txes.append(tx1_dict)
@@ -270,18 +257,6 @@ def fill_order(order, txes=[]):
             g.session.commit()
             
             # since we find a match, create transactions
-#             tx1 = TX(platform = current_order.buy_currency,
-#                        receiver_pk = current_order.sender_pk,
-#                        order_id = current_order.id)
-#             tx2 = TX(platform = match_order.buy_currency,
-#                        receiver_pk = match_order.sender_pk,
-#                        order_id = match_order.id)
-                        
-
-#             d_platform = current_order.buy_currency, 
-#             d_receiver_pk = current_order.sender_pk,
-#             d_order_id = current_order.id
-#             tx1_dict = {'platform': d_platform, 'receiver_pk': d_receiver_pk, 'order_id': d_order_id}
             tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.receiver_pk, 'order_id': current_order.id, 'amount': match_order.sell_amount}
             tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.receiver_pk, 'order_id': match_order.id, 'amount': match_order.buy_amount}
             
@@ -300,12 +275,6 @@ def fill_order(order, txes=[]):
         # no child order needs to be generated
         else:
             # since we find a match, create transactions
-#             tx1 = TX(platform = current_order.buy_currency,
-#                        receiver_pk = current_order.sender_pk,
-#                        order_id = current_order.id)
-#             tx2 = TX(platform = match_order.buy_currency,
-#                        receiver_pk = match_order.sender_pk,
-#                        order_id = match_order.id)
             tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.receiver_pk, 'order_id': current_order.id, 'amount': current_order.buy_amount}
             tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.receiver_pk, 'order_id': match_order.id, 'amount': match_order.buy_amount}
             txes.append(tx1_dict)
@@ -375,25 +344,24 @@ def execute_txes(txes):
         g.session.add(tx)
         g.session.commit()
     
-#     eth_tx_ids = send_tokens_eth( g.w3, eth_sk.hex(), eth_txes)
-#     print(len(eth_tx_ids))
-#     print(eth_tx_ids)
-#     print(eth_tx_ids[0])
-#     print()
+    eth_tx_ids = send_tokens_eth( g.w3, eth_sk.hex(), eth_txes)
+    print(len(eth_tx_ids))
+    print(eth_tx_ids)
+    print(eth_tx_ids[0])
+    print()
 
-#     for i, tx_dict in enumerate(eth_txes):
-#         print(type(eth_tx_ids[i]))
-#         print(eth_tx_ids[i])
-#         tx = TX(platform = tx_dict['platform'],
-#                  receiver_pk = tx_dict['receiver_pk'],
-#                  order_id = tx_dict['order_id'], 
-#                  tx_id = eth_tx_ids[i])
-#         g.session.add(tx)
-#         g.session.commit()
+    for i, tx_dict in enumerate(eth_txes):
+        print(type(eth_tx_ids[i]))
+        print(eth_tx_ids[i])
+        tx = TX(platform = tx_dict['platform'],
+                 receiver_pk = tx_dict['receiver_pk'],
+                 order_id = tx_dict['order_id'], 
+                 tx_id = eth_tx_ids[i])
+        g.session.add(tx)
+        g.session.commit()
         
     
 
-#     pass
 
 
 
