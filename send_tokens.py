@@ -37,7 +37,7 @@ def connect_to_algo(connection_type=''):
 
 
 def send_tokens_algo( acl, sender_sk, txes):
-    params = acl.suggested_params
+#     params = acl.suggested_params
 
     # TODO: You might want to adjust the first/last valid rounds in the suggested_params
     #       See guide for details
@@ -49,39 +49,21 @@ def send_tokens_algo( acl, sender_sk, txes):
     # TODO: Return a list of transaction id's
     
     sender_pk = account.address_from_private_key(sender_sk)
-    print(sender_sk)
-    print(sender_pk)
-    
-    
-
     tx_ids = []
     for i,tx in enumerate(txes):
         
         params = acl.suggested_params()
-#         gen = params.gen
-#         gen_hash = params.gh
-#         first_valid_round = params.first
-#         last_valid_round = params.last
-#         tx_fee = params.min_fee
-#         send_amount = 1
-        
         receiver = tx['receiver_pk']
         amount = tx['amount']
         print(receiver)
         print(amount)
     
         # "Replace me with a transaction object"
-#         unsigned_tx = transaction.PaymentTxn(sender_pk, tx_fee, first_valid_round, last_valid_round, gen_hash, receiver, amount, flat_fee=True)
         unsigned_tx = transaction.PaymentTxn(sender_pk, params, receiver, amount)
         
-        print("reach")
-
         # "Replace me with a SignedTransaction object"
         signed_tx = unsigned_tx.sign(sender_sk)
-        
-        
-        
-        
+
         try:
             print(f"Sending {tx['amount']} microalgo from {sender_pk} to {tx['receiver_pk']}" )
             
@@ -95,7 +77,6 @@ def send_tokens_algo( acl, sender_sk, txes):
         except Exception as e:
             print(e)
 
-#     return []
     return tx_ids
 
 
