@@ -38,9 +38,7 @@ def connect_to_algo(connection_type=''):
 
 def send_tokens_algo( acl, sender_sk, txes):
     params = acl.suggested_params
-    
-   
-    
+
     # TODO: You might want to adjust the first/last valid rounds in the suggested_params
     #       See guide for details
 
@@ -50,8 +48,6 @@ def send_tokens_algo( acl, sender_sk, txes):
     
     # TODO: Return a list of transaction id's
     
-    print("hehehe")
-
     sender_pk = account.address_from_private_key(sender_sk)
     print(sender_sk)
     print(sender_pk)
@@ -61,13 +57,13 @@ def send_tokens_algo( acl, sender_sk, txes):
     tx_ids = []
     for i,tx in enumerate(txes):
         
-        params = acl.suggested_params()
-        gen = params.gen
-        gen_hash = params.gh
-        first_valid_round = params.first
-        last_valid_round = params.last
-        tx_fee = params.min_fee
-        send_amount = 1
+#         params = acl.suggested_params()
+#         gen = params.gen
+#         gen_hash = params.gh
+#         first_valid_round = params.first
+#         last_valid_round = params.last
+#         tx_fee = params.min_fee
+#         send_amount = 1
         
         receiver = tx['receiver_pk']
         amount = tx['amount']
