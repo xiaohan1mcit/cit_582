@@ -34,12 +34,6 @@ app = Flask(__name__)
 def create_session():
     g.session = scoped_session(DBSession)
 
-    
-    
-    
-  
-    
- 
 @app.teardown_appcontext
 def shutdown_session(response_or_exc):
     sys.stdout.flush()
@@ -112,11 +106,9 @@ def connect_to_blockchains():
 
 def log_message(message_dict):
     # msg = json.dumps(message_dict) # generate json string
-    
     # TODO: Add message to the Log table
     order_obj = Log(message=message_dict)
     g.session.add(order_obj)
-    #return
 
     
     
@@ -131,7 +123,6 @@ def get_algo_keys():
     
     # TODO: Generate or read (using the mnemonic secret) 
     # the algorand public/private keys
-    
     mnemonic_secret = "such chapter crane ugly uncover fun kitten duty culture giant skirt reunion pizza pill web monster upon dolphin aunt close marble dune kangaroo ability merit"
     algo_sk = mnemonic.to_private_key(mnemonic_secret)
     algo_pk = mnemonic.to_public_key(mnemonic_secret)
@@ -139,16 +130,14 @@ def get_algo_keys():
     return algo_sk, algo_pk
 
 
+
+
 def get_eth_keys(filename = "eth_mnemonic.txt"):
     w3 = Web3()
     
     # TODO: Generate or read (using the mnemonic secret) 
     # the ethereum public/private keys
-    
-    # if mnemonic_secret == None:
     w3.eth.account.enable_unaudited_hdwallet_features()
-    # acct,mnemonic_secret = w3.eth.account.create_with_mnemonic()
-    # print(mnemonic_secret)
     
     mnemonic_secret = "program gym dash habit possible gate shallow exclude access report cave will"
     acct = w3.eth.account.from_mnemonic(mnemonic_secret)
@@ -172,8 +161,6 @@ def fill_order(order, txes=[]):
     
     # get the order you just inserted from the DB
     current_order = order
-    # print("_order_id")
-    # print(current_order.id)
 
     # Check if there are any existing orders that match and add them into a list
     order_list = []
@@ -189,9 +176,6 @@ def fill_order(order, txes=[]):
 
     # If a match is found between order and existing_order
     if (len(order_list) > 0):
-        # print(" order_list_length")
-        # print(len(order_list))
-        # pick the first one in the list
         match_order = order_list[0]
 
         # Set the filled field to be the current timestamp on both orders
@@ -207,14 +191,9 @@ def fill_order(order, txes=[]):
 
         # If match_order is not completely filled
         if (current_order.sell_amount < match_order.buy_amount):
-            # print("_match_order is not completely filled")
             diff = match_order.buy_amount - current_order.sell_amount
             exchange_rate_match = match_order.sell_amount / match_order.buy_amount
             sell_amount_new_match = diff * exchange_rate_match
-            # print(match_order.id)
-            # print(diff)
-            # print(sell_amount_new_match)
-#             txid = match_order.tx_id
             new_order = Order(sender_pk=match_order.sender_pk,
                               receiver_pk=match_order.receiver_pk,
                               buy_currency=match_order.buy_currency,
@@ -245,10 +224,6 @@ def fill_order(order, txes=[]):
             diff = current_order.buy_amount - match_order.sell_amount
             exchange_rate_current = current_order.buy_amount / current_order.sell_amount
             sell_amount_new_current = diff / exchange_rate_current
-            # print(current_order.id)
-            # print(diff)
-            # print(sell_amount_new_current)
-#             txid = current_order.tx_id
             new_order = Order(sender_pk=current_order.sender_pk,
                               receiver_pk=current_order.receiver_pk,
                               buy_currency=current_order.buy_currency,
@@ -263,8 +238,6 @@ def fill_order(order, txes=[]):
             # since we find a match, create transactions
             tx1_dict = {'platform': current_order.buy_currency, 'receiver_pk': current_order.receiver_pk, 'order_id': current_order.id, 'amount': match_order.sell_amount}
             tx2_dict = {'platform': match_order.buy_currency, 'receiver_pk': match_order.receiver_pk, 'order_id': match_order.id, 'amount': match_order.buy_amount}
-            
-            
             txes.append(tx1_dict)
             txes.append(tx2_dict)
             
@@ -284,9 +257,6 @@ def fill_order(order, txes=[]):
             txes.append(tx1_dict)
             txes.append(tx2_dict)
             
-            # g.session.add(tx1)
-            # g.session.add(tx2)
-            # g.session.commit()
             print("E")
             print(current_order.id)
             print(match_order.id)
@@ -422,9 +392,6 @@ def print_tx_list(txes):
     for tx in txes:
         print(type(tx))
         print_dict(tx)
-#         print(tx.platform)
-#         print(tx.receiver_pk)
-#         print(tx.order_id)
         print()
         
 """ End of Helper methods"""
@@ -496,7 +463,6 @@ def address():
 def trade():
     print( "In trade", file=sys.stderr )
     connect_to_blockchains()
-#     get_keys()
     get_eth_keys()
     get_algo_keys() 
     if request.method == "POST":
@@ -583,8 +549,6 @@ def trade():
             txes = []
             current_order = g.session.query(Order).order_by(Order.id.desc()).first()
             fill_order(current_order, txes)
-            
-            
 
             # 4. Execute the transactions
             execute_txes(txes)
