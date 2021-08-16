@@ -34,11 +34,22 @@ app = Flask(__name__)
 def create_session():
     g.session = scoped_session(DBSession)
 
+    
+    
+    
 @app.teardown_appcontext
-def shutdown_session(response_or_exc):
+# def shutdown_session(response_or_exc):
+def shutdown_session(exception=None):
     sys.stdout.flush()
     g.session.commit()
-    g.session.remove()
+    g.session.remove()   
+    
+ 
+# @app.teardown_appcontext
+# def shutdown_session(response_or_exc):
+#     sys.stdout.flush()
+#     g.session.commit()
+#     g.session.remove()
 
 def connect_to_blockchains():
     try:
