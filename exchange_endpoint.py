@@ -119,10 +119,10 @@ def log_message(message_dict):
     # msg = json.dumps(message_dict) # generate json string
     
     # TODO: Add message to the Log table
-    create_session()
+#     create_session()
     order_obj = Log(message=message_dict)
     g.session.add(order_obj)
-    shutdown_session()
+#     shutdown_session()
     #return
 
     
