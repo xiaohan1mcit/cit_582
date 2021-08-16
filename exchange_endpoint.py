@@ -388,6 +388,11 @@ def order_book():
 
     for order in g.session.query(Order).all():
         append_order(order, data)
+        
+        
+    print(type(data))
+    print(type(data[0]))
+    print(data[0])
     return jsonify(data=data)
 
 
